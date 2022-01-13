@@ -43,7 +43,7 @@ const AdminPage = () => {
 
                     <ContentElementTable >
                         <NameElementTable>Productos ({products.array.length})</NameElementTable>
-                        <Link to=''> Ver detalles </Link>
+                        <Link to='/products'> Ver detalles </Link>
                     </ContentElementTable>
                 </ContentTable>
 

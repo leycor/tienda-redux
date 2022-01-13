@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import tw from 'twin.macro'
 
 // Actions
-import { getCategoryAction } from '../redux/categoryDucks'
+import { getProductsAction } from '../redux/productsDucks'
 
 
 // Components
@@ -14,48 +14,49 @@ import TitlePage from '../ui-components/TitlePage'
 
 // Style Components
 const ContentSearchAndCreate = tw.div`flex flex-col mb-4`
-const TitleGridTable = tw.div`hidden md:grid grid-cols-4 bg-black p-3 text-white font-medium text-xs md:text-sm`
+const TitleGridTable = tw.div`hidden md:grid grid-cols-5 bg-black p-3 text-white font-medium text-xs md:text-sm`
 const InputSearch = tw.input`focus:outline-none text-center lg:text-left mb-2 px-5 py-2 italic border-black border lg:w-60`
 
-const AllCategoriesPage = () => {
+const AllProductsPage = () => {
 
     const dispatch = useDispatch()
-    const categories = useSelector( store => store.categories.array )
+    const products = useSelector( store => store.products.array )
 
     // Obtener datos de store al iniciar el componente
     React.useEffect( ()=>{
-        dispatch( getCategoryAction() )
+        dispatch( getProductsAction() )
     },[])
 
-    console.log(categories)
+    console.log(products)
     return (
         <ContentPage>
-            <TitlePage title='Nombre de la categoria'></TitlePage>
+            <TitlePage title='Nombre de de producto'></TitlePage>
             <ContentSearchAndCreate>
-                <button className='px-5 py-3 text-white bg-blue-600 font-medium text-sm mb-5 lg:mb-10 lg:w-60'>CREAR CATEGORIA</button>
+                <button className='px-5 py-3 text-white bg-blue-600 font-medium text-sm mb-5 lg:mb-10 lg:w-60'>CREAR PRODUCTO</button>
                 <InputSearch type='text' placeholder='Buscar...'></InputSearch>
             </ContentSearchAndCreate>
 
             <TitleGridTable>
                 <p>Nombre</p>
-                <p>Creación</p>
-                <p>Actualización</p>
+                <p>Stock</p>
+                <p>Precio</p>
+                <p>Categoria</p>
                 <p>Acciones</p>
             </TitleGridTable>
 
             {/* Contenido de tabla para pantallas LG */}
             {
-                categories.length > 0 && // Muestra contenido si hay categorias
-                categories.map( (category) => (
-                    <GridTableLg key={category.id} data={category} gridCols={4} />
+                products.length > 0 && // Muestra contenido si hay categorias
+                products.map( (product) => (
+                    <GridTableLg key={product.id} data={product} gridCols={5} />
                 ))
             }
 
             {/* Contenido de la tabla para pantallas Moviles*/}
             {
-                categories.length > 0 && /// Muestra contenido si hay categorias
-                categories.map( (category) => (
-                    <GridTableMovil key={category.id} data={category} gridCols={2} />
+                products.length > 0 && /// Muestra contenido si hay categorias
+                products.map( (product) => (
+                    <GridTableMovil key={product.id} data={product} gridCols={2} />
                 ) )
             }
 
@@ -63,4 +64,4 @@ const AllCategoriesPage = () => {
     )
 }
 
-export default AllCategoriesPage
+export default AllProductsPage

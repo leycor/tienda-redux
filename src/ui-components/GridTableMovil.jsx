@@ -5,7 +5,7 @@ const ContentGridTable = tw.div`grid  bg-black text-white text-sm font-medium mb
 const Title = tw.p`bg-black p-2 flex items-center justify-center border-gray-300 border-b`
 const Detail = tw.p`bg-white p-2 text-black border-gray-300 border-b`
 
-const GridTableMovil = ({name, createdAt, updatedAt, id, gridCols}) => {
+const GridTableMovil = ({data,gridCols}) => {
 
         // Función para formatear fecha
         const date = new Date();
@@ -15,15 +15,37 @@ const GridTableMovil = ({name, createdAt, updatedAt, id, gridCols}) => {
         }
 
     return (
+        data.price
+        ? 
+        // Imprimir esto si la data son productos
         <ContentGridTable className={`grid-cols-${gridCols}`}>
                 <Title >Nombre</Title>
-                    <Detail >{ name } </Detail>
+                    <Detail >{`#${data.id} ${data.name}`} </Detail>
+
+                <Title >Stock</Title>
+                    <Detail > { data.stock} </Detail>
+
+                <Title >Precio</Title>
+                    <Detail className='text-green-600' > { data.price}$ </Detail>
+
+                <Title >Categoria</Title>
+                    <Detail > { data.category.name} </Detail>
+
+                <Title >Acciones</Title>
+                    <Detail >Modificar || Eliminar</Detail>
+        </ContentGridTable>
+
+        :
+        // Imprimir esto si la data son categorias
+        <ContentGridTable className={`grid-cols-${gridCols}`}>
+                <Title >Nombre</Title>
+                    <Detail >{`#${data.id} ${data.name}`} </Detail>
 
                 <Title >Creación</Title>
-                    <Detail > { formatDate(createdAt) } </Detail>
+                    <Detail > { formatDate(data.createdAt) } </Detail>
 
                 <Title >Actualización</Title>
-                    <Detail > { formatDate(updatedAt)} </Detail>
+                    <Detail > { formatDate(data.updatedAt)} </Detail>
 
                 <Title >Acciones</Title>
                     <Detail >Modificar || Eliminar</Detail>
