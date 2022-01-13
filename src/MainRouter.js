@@ -9,10 +9,11 @@ import LoginPage from './pages/LoginPage';
 import NoMatchPage from './pages/NoMatchPage';
 import RegisterPage from './pages/RegisterPage';
 import AllCategoriesPage from './pages/AllCategoriesPage';
+import DetailProduct from './pages/DetailProduct';
+import AllProductsPage from './pages/AllProductsPage';
 
 // Store
 import generateStore from './redux/store'
-import AllProductsPage from './pages/AllProductsPage';
 
 
 const MainRouter = () => {
@@ -28,6 +29,7 @@ const MainRouter = () => {
         <Route path='/' element={ <AdminPage />} />
         <Route path='/categories' element={ <AllCategoriesPage />} />
         <Route path='/products' element={ <AllProductsPage />} />
+        <Route path='/products/:id' element={ <DetailProduct />} />
         <Route path='/login' element={ <LoginPage />} />
         <Route path='/register' element={ <RegisterPage />} />
         <Route path="*" element={<NoMatchPage />} />

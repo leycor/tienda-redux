@@ -4,12 +4,14 @@ import axios from 'axios'
 const initialData = {
     array: [],
     filter:[],
-    filterValue: 'todos'
+    filterValue: 'todos',
+    detailProduct: null,
 }
 
 // TIPOS DE ACCIONES
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const FILTER_PRODUCTS = 'FILTER_PRODUCTS'
+const GET_DETAIL_PRODUCT = 'GET_DETAIL_PRODUCT'
 
 // REDUCERS
 export const productsReducer = (state=initialData, action) => {
@@ -20,6 +22,9 @@ export const productsReducer = (state=initialData, action) => {
 
         case FILTER_PRODUCTS:
             return {...state, filter: action.payload.array, filterValue: action.payload.filter }
+
+        case GET_DETAIL_PRODUCT:
+            return {...state, detailProduct: action.payload}
         default:
             return state
     }
@@ -57,4 +62,19 @@ export const filterProductAction = ( filter ) => async( dispatch, getState) => {
             array: filter === 'todos' ? [] : result
         }
     })
+}
+
+export const getDetailProduct = (id) => async(dispatch, getState) => {
+    console.log('Estoy buscando producto con el id', id)
+    try {
+        const result = await axios.get(`http://localhost:3001/api/products/${id}`)
+
+        dispatch({
+            type: GET_DETAIL_PRODUCT,
+            payload: result.data
+        })
+
+    } catch (error) {
+        console.log('Error al buscar el producto', error)
+    }
 }
