@@ -8,6 +8,7 @@ import AdminPage from './pages/AdminPage';
 import LoginPage from './pages/LoginPage';
 import NoMatchPage from './pages/NoMatchPage';
 import RegisterPage from './pages/RegisterPage';
+import AllCategoriesPage from './pages/AllCategoriesPage';
 
 // Store
 import generateStore from './redux/store'
@@ -24,6 +25,7 @@ const MainRouter = () => {
       {/* Rutas */}
       <Routes>
         <Route path='/' element={ <AdminPage />} />
+        <Route path='/categories' element={ <AllCategoriesPage />} />
         <Route path='/login' element={ <LoginPage />} />
         <Route path='/register' element={ <RegisterPage />} />
         <Route path="*" element={<NoMatchPage />} />
