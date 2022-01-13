@@ -16,6 +16,14 @@ const FilterProduct = ({data}) => {
         dispatch( filterProductAction(e.target.value) )
     }
 
+    // Mostrar todos los productos al salir del componente
+    React.useEffect(()=> {
+        return () => {
+            console.log('Sali del componente')
+            dispatch(filterProductAction('todos'))
+        }
+    },[])
+
     return (
         <div>
             <p className='my-3 font-medium'>Filtrar porductos por categoria</p>
