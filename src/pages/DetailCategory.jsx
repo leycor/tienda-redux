@@ -8,7 +8,7 @@ import ContentPage from '../ui-components/ContentPage'
 import TitlePage from '../ui-components/TitlePage'
 
 // Actions
-import { getDetailProduct } from '../redux/productsDucks';
+import { getDetailCategoryAction } from '../redux/categoryDucks';
 
 // Style Components
 
@@ -19,68 +19,52 @@ const ContentData = tw.div`flex gap-4 my-3 px-5 py-2 font-medium border-gray-300
 const DataTitle = tw.p`uppercase`
 const DataDetail = tw.p`uppercase text-gray-600`
 
-const DetailProduct = () => {
+const DetailCategory = () => {
 
     const {id } = useParams()
+    const detailCategory = useSelector(store => store.categories.detailCategory)
 
     const dispatch = useDispatch()
-    const detailProduct = useSelector(store => store.products.detailProduct)
-    console.log(detailProduct)
 
     React.useEffect( () => {
-        dispatch( getDetailProduct(id) )
+        dispatch( getDetailCategoryAction(id) )
     },[])
 
 
     return (
         <ContentPage>
             {
-                detailProduct !== null // Si el producto existe, muestralo.
+                detailCategory !== null // Si el producto existe, muestralo.
                 ?
                 <>
-                    <TitlePage title='DETALLES DE PRODUCTOS' />
+                    <TitlePage title='DETALLES DE CATEGORIAS' />
                     <ContentActions>
-                        <Link to={`/products/${detailProduct.id}/update`} className='text-white font-medium px-5 py-3 bg-yellow-500' >Modificar</Link>
+                        <Link to={`/products/${detailCategory.id}/update`} className='text-white font-medium px-5 py-3 bg-yellow-500' >Modificar</Link>
                         <button className='text-white font-medium px-5 py-3 bg-red-600' >Eliminar</button>
                     </ContentActions>
 
                     <ContentProduct>
-                        <ProductName >{detailProduct.name}</ProductName>
+                        <ProductName >{detailCategory.name}</ProductName>
 
                         <ContentData >
                             <DataTitle >Nombre:</DataTitle>
-                            <DataDetail >{detailProduct.name}</DataDetail>
-                        </ContentData>
-
-                        <ContentData >
-                            <DataTitle >Stock:</DataTitle>
-                            <DataDetail >{detailProduct.stock}</DataDetail>
-                        </ContentData>
-
-                        <ContentData >
-                            <DataTitle >Precio:</DataTitle>
-                            <DataDetail >{detailProduct.price}$</DataDetail>
-                        </ContentData>
-
-                        <ContentData >
-                            <DataTitle >Categoria:</DataTitle>
-                            <DataDetail >{detailProduct.category.name}</DataDetail>
+                            <DataDetail >{detailCategory.name}</DataDetail>
                         </ContentData>
 
                         <ContentData >
                             <DataTitle >Fecha de creación:</DataTitle>
-                            <DataDetail >{detailProduct.createdAt}</DataDetail>
+                            <DataDetail >{detailCategory.createdAt}</DataDetail>
                         </ContentData>
 
                         <ContentData >
                             <DataTitle >Ultima vez actualizado:</DataTitle>
-                            <DataDetail >{detailProduct.updatedAt}</DataDetail>
+                            <DataDetail >{detailCategory.updatedAt}</DataDetail>
                         </ContentData>
 
                     </ContentProduct>
                 </>
                 :
-                <TitlePage title='Este producto no existe.' />
+                <TitlePage title='Esta categoria no existe' />
 
             }
 
@@ -88,4 +72,4 @@ const DetailProduct = () => {
     )
 }
 
-export default DetailProduct
+export default DetailCategory

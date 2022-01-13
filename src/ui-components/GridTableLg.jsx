@@ -31,7 +31,7 @@ const GridTableLg = ({data, gridCols}) => {
             <p>{`#${data.id} ${data.name}`}</p>
             <p>{formatDate(data.createdAt)}</p>
             <p> {formatDate(data.updatedAt)} </p>
-            <p className='text-yellow-600'>Ver detalles</p>
+            <Link to={`/categories/${data.id}`} className='text-blue-400'>Ver detalles</Link>
         </ContentGridTable>
     )
 }
