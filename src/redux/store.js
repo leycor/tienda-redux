@@ -1,9 +1,14 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import thunk  from 'redux-thunk'
+
+// Reducers
 import { categoryReducer } from './categoryDucks';
+import { productsReducer } from './productsDucks';
+
 
 const rootReducer = combineReducers({
-    categories: categoryReducer
+    categories: categoryReducer,
+    products: productsReducer,
 })
 
 // Verificar si la extensión redux_devs_tools está instalada.

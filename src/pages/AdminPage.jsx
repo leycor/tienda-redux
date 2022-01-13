@@ -1,5 +1,10 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import tw from 'twin.macro'
+
+// Acciones
+import { getCategoryAction } from '../redux/categoryDucks'
+import { getProductsAction } from '../redux/productsDucks'
 
 // Components
 import ContentPage from '../ui-components/ContentPage'
@@ -14,6 +19,17 @@ const ButtonElementTable = tw.button`cursor-pointer text-blue-600`
 
 
 const AdminPage = () => {
+
+    const dispatch = useDispatch()
+    const {categories, products} = useSelector( store => store)
+
+    // Obtener datos de store al iniciar el componente
+    React.useEffect( ()=>{
+        dispatch( getCategoryAction() )
+        dispatch( getProductsAction() )
+    },[])
+
+
     return (
         <ContentPage>
             <TitlePage title='SITIO ADMINISTRATIVO' />
@@ -21,12 +37,12 @@ const AdminPage = () => {
 
                 <ContentTable className='px-6 font-medium'>
                     <ContentElementTable>
-                        <NameElementTable>Categorias (5)</NameElementTable>
+                        <NameElementTable>Categorias ({categories.array.length})</NameElementTable>
                         <ButtonElementTable>Ver detalles</ButtonElementTable>
                     </ContentElementTable>
 
                     <ContentElementTable >
-                        <NameElementTable>Productos (5)</NameElementTable>
+                        <NameElementTable>Productos ({products.array.length})</NameElementTable>
                         <ButtonElementTable >Ver detalles</ButtonElementTable>
                     </ContentElementTable>
                 </ContentTable>

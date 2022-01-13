@@ -9,7 +9,6 @@ const initialData = {
 // TIPOS DE ACCIONES
 const GET_CATEGORY = 'GET_CATEGORY'
 
-
 // REDUCTORES
 export const categoryReducer = (state=initialData, action) => {
 
