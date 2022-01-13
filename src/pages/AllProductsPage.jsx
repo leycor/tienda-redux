@@ -30,9 +30,9 @@ const AllProductsPage = () => {
     console.log(products)
     return (
         <ContentPage>
-            <TitlePage title='Nombre de de producto'></TitlePage>
             <ContentSearchAndCreate>
                 <button className='px-5 py-3 text-white bg-blue-600 font-medium text-sm mb-5 lg:mb-10 lg:w-60'>CREAR PRODUCTO</button>
+                <TitlePage title='Nombre de de producto'></TitlePage>
                 <InputSearch type='text' placeholder='Buscar...'></InputSearch>
             </ContentSearchAndCreate>
 

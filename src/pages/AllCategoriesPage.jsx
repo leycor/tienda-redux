@@ -10,15 +10,15 @@ import { getCategoryAction } from '../redux/categoryDucks'
 import ContentPage from '../ui-components/ContentPage'
 import GridTableLg from '../ui-components/GridTableLg.jsx'
 import GridTableMovil from '../ui-components/GridTableMovil'
+import InputSearch from '../ui-components/InputSearch'
 import TitlePage from '../ui-components/TitlePage'
 
 // Style Components
 const ContentSearchAndCreate = tw.div`flex flex-col mb-4`
 const TitleGridTable = tw.div`hidden md:grid grid-cols-4 bg-black p-3 text-white font-medium text-xs md:text-sm`
-const InputSearch = tw.input`focus:outline-none text-center lg:text-left mb-2 px-5 py-2 italic border-black border lg:w-60`
 
 const AllCategoriesPage = () => {
-
+    
     const dispatch = useDispatch()
     const categories = useSelector( store => store.categories.array )
 
@@ -30,10 +30,13 @@ const AllCategoriesPage = () => {
     console.log(categories)
     return (
         <ContentPage>
-            <TitlePage title='Nombre de la categoria'></TitlePage>
             <ContentSearchAndCreate>
                 <button className='px-5 py-3 text-white bg-blue-600 font-medium text-sm mb-5 lg:mb-10 lg:w-60'>CREAR CATEGORIA</button>
-                <InputSearch type='text' placeholder='Buscar...'></InputSearch>
+                <TitlePage title='Nombre de la categoria'></TitlePage>
+
+                {/* Buscador */}
+                <InputSearch data={categories} />
+
             </ContentSearchAndCreate>
 
             <TitleGridTable>
