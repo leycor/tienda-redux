@@ -1,9 +1,9 @@
 import React from 'react'
 import tw from 'twin.macro'
 
-const ContentGridTable = tw.div`hidden md:grid grid-cols-4 py-3 font-medium px-3 border-gray-300 border-b`
+const ContentGridTable = tw.div`hidden md:grid py-3 font-medium px-3 border-gray-300 border-b`
 
-const GridTableLg = ({name, createdAt, updatedAt, id}) => {
+const GridTableLg = ({name, createdAt, updatedAt, id, gridCols}) => {
 
     // Función para formatear fecha
     const date = new Date();
@@ -11,8 +11,9 @@ const GridTableLg = ({name, createdAt, updatedAt, id}) => {
         let formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
         return formatted_date;
     }
+    
     return (
-        <ContentGridTable>
+        <ContentGridTable className={`grid-cols-${gridCols}`}>
             <p>{name}</p>
             <p>{formatDate(createdAt)}</p>
             <p> {formatDate(updatedAt)} </p>

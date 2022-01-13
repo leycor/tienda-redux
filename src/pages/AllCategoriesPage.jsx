@@ -9,6 +9,7 @@ import { getCategoryAction } from '../redux/categoryDucks'
 // Components
 import ContentPage from '../ui-components/ContentPage'
 import GridTableLg from '../ui-components/GridTableLg.jsx'
+import GridTableMovil from '../ui-components/GridTableMovil'
 import TitlePage from '../ui-components/TitlePage'
 
 // Style Components
@@ -44,13 +45,17 @@ const AllCategoriesPage = () => {
             {/* Contenido de tabla para pantallas LG */}
             {
                 categories.map( ({id, name, createdAt, updatedAt}) => (
-                    <GridTableLg key={id} id={id} name={name} createdAt={createdAt} updatedAt={updatedAt} />
+                    <GridTableLg key={id} id={id} name={name} createdAt={createdAt} updatedAt={updatedAt} gridCols={4} />
                 ))
             }
-            {/* <GridTableLg name='Vegetaless' created='20/20/20' updated='20/20/20' /> */}
 
-            {/* Mostrar Tabla en Movil */}
-            <div className='grid grid-cols-2 bg-black text-white text-sm font-medium mb-5 md:hidden'>
+            {/* Contenido de la tabla para pantallas Moviles*/}
+            {
+                categories.map( ({id, name, createdAt, updatedAt}) => (
+                    <GridTableMovil key={id} id={id} name={name} createdAt={createdAt} updatedAt={updatedAt} gridCols={2} />
+                ) )
+            }
+            {/* <div className='grid grid-cols-2 bg-black text-white text-sm font-medium mb-5 md:hidden'>
                 <p className='bg-black p-2 flex items-center justify-center border-gray-300 border-b'>Nombre</p>
                 <p className='bg-white p-2 text-black border-gray-300 border-b'>Carnes Molida Picada</p>
                 <p className='bg-black p-2 flex items-center justify-center border-gray-300 border-b'>Creación</p>
@@ -59,7 +64,7 @@ const AllCategoriesPage = () => {
                 <p className='bg-white p-2 text-black border-gray-300 border-b'>20/02/1995</p>
                 <p className='bg-black p-2 flex items-center justify-center border-gray-300 border-b'>Acciones</p>
                 <p className='bg-white p-2 text-black border-gray-300 border-b'>Modificar || Eliminar</p>
-            </div>
+            </div> */}
 
         </ContentPage>
     )
