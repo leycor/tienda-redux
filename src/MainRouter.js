@@ -3,9 +3,8 @@ import { Provider } from 'react-redux'
 import { Routes, Route, Link } from "react-router-dom";
 
 // Components
-import Categories from './components/Categories'
-import Index from './components/Index';
-import Navbar from './components/Navbar';
+import Navbar from './ui-components/Navbar';
+import AdminPage from './pages/AdminPage';
 import LoginPage from './pages/LoginPage';
 import NoMatchPage from './pages/NoMatchPage';
 import RegisterPage from './pages/RegisterPage';
@@ -24,12 +23,11 @@ const MainRouter = () => {
 
       {/* Rutas */}
       <Routes>
-        <Route path='/' element={ <Index />} />
+        <Route path='/' element={ <AdminPage />} />
         <Route path='/login' element={ <LoginPage />} />
         <Route path='/register' element={ <RegisterPage />} />
         <Route path="*" element={<NoMatchPage />} />
       </Routes>
-
     </Provider>
   )
 }
