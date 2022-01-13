@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 // Components
 import ContentPage from '../ui-components/ContentPage'
@@ -40,7 +40,7 @@ const DetailProduct = () => {
                 <>
                     <TitlePage title='DETALLES' />
                     <ContentActions>
-                        <button className='text-white font-medium px-5 py-3 bg-yellow-500' >Modificar</button>
+                        <Link to={`/products/${detailProduct.id}/update`} className='text-white font-medium px-5 py-3 bg-yellow-500' >Modificar</Link>
                         <button className='text-white font-medium px-5 py-3 bg-red-600' >Eliminar</button>
                     </ContentActions>
 
