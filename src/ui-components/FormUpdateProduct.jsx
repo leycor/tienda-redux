@@ -7,6 +7,9 @@ import tw from 'twin.macro'
 
 // Funciones utilitarias
 import { validationProduct } from '../utils/validations'
+import { updateProductAction } from "../redux/productsDucks";
+
+// Actions
 
 
 // Style Components
@@ -18,7 +21,8 @@ const DataDetail = tw.input`text-gray-600 focus:outline-none w-full p-1 px-2 ita
 
 const FormUpdateProduct = ({data, categories}) => {
 
-    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const navigate = useNavigate(); 
     const [error, setError] = React.useState('')
     const [inputValue, setInputValue ] = React.useState({
         name: '',
@@ -43,14 +47,18 @@ const FormUpdateProduct = ({data, categories}) => {
         // Validaciones ======================================================================
         if(validationProduct(inputValue, setError) === 'formOkey'){
             // Enviar actualizaciones a la DB
-            try {
-                const response = await axios.put(`http://localhost:3001/api/products/${data.id}`, inputValue);
-                console.log(response)
-                setInputValue({name: '', stock:'', price:'', categoyId:''})
-                // navigate(`/products/${data.id}`)
-            } catch (error) {
-                console.log(error)
-            }
+            const resUpdate = window.confirm('¿Estas seguro que desea actualizar el producto?')
+            if(resUpdate !== true) return false // Confirmación aceptada
+            dispatch( updateProductAction(data.id, inputValue) )
+            navigate(`/products/`)
+            // try {
+            //     const response = await axios.put(`http://localhost:3001/api/products/${data.id}`, inputValue);
+            //     console.log(response)
+            //     setInputValue({name: '', stock:'', price:'', categoyId:''})
+            //     navigate(`/products/${data.id}`)
+            // } catch (error) {
+            //     console.log(error)
+            // }
         }
         // Validaciones ======================================================================
 

@@ -12,6 +12,7 @@ const initialData = {
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const FILTER_PRODUCTS = 'FILTER_PRODUCTS'
 const GET_DETAIL_PRODUCT = 'GET_DETAIL_PRODUCT'
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 
 // REDUCERS
 export const productsReducer = (state=initialData, action) => {
@@ -25,6 +26,9 @@ export const productsReducer = (state=initialData, action) => {
 
         case GET_DETAIL_PRODUCT:
             return {...state, detailProduct: action.payload}
+
+        case UPDATE_PRODUCT:
+            return state
         default:
             return state
     }
@@ -35,7 +39,7 @@ export const productsReducer = (state=initialData, action) => {
 
 // Obtener todos los productos
 export const getProductsAction = () => async(dispatch, getState) => {
-
+    console.log('Obteniendo todos los productos')
     try {
         const result = await axios.get('http://localhost:3001/api/products')
         dispatch({
@@ -64,6 +68,7 @@ export const filterProductAction = ( filter ) => async( dispatch, getState) => {
     })
 }
 
+// Obtener un producto
 export const getDetailProduct = (id) => async(dispatch, getState) => {
     console.log('Estoy buscando producto con el id', id)
     try {
@@ -77,4 +82,21 @@ export const getDetailProduct = (id) => async(dispatch, getState) => {
     } catch (error) {
         console.log('Error al buscar el producto', error)
     }
+}
+
+
+// Actualizar un producto
+export const updateProductAction = (id, inputValue) => async(dispatch, getState) => {
+    console.log('Actualizar el producto con id', id)
+    try {
+        const response = await axios.put(`http://localhost:3001/api/products/${id}`, inputValue);
+        console.log(response)
+
+        dispatch({
+            type: UPDATE_PRODUCT
+        })
+    } catch (error) {
+        console.log(error)
+    }
+
 }
