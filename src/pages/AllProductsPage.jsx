@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import tw from 'twin.macro'
 
 // Actions
+import { getCategoryAction } from '../redux/categoryDucks'
 import { getProductsAction } from '../redux/productsDucks'
 
 
 // Components
 import ContentPage from '../ui-components/ContentPage'
+import FilterProduct from '../ui-components/FilterProduct'
 import GridTableLg from '../ui-components/GridTableLg.jsx'
 import GridTableMovil from '../ui-components/GridTableMovil'
 import InputSearch from '../ui-components/InputSearch'
@@ -21,10 +23,13 @@ const AllProductsPage = () => {
 
     const dispatch = useDispatch()
     const products = useSelector( store => store.products.array )
+    const filterProducts = useSelector( store => store.products.filter )
+    const categories = useSelector( store => store.categories.array )
 
     // Obtener datos de store al iniciar el componente
     React.useEffect( ()=>{
         dispatch( getProductsAction() )
+        dispatch( getCategoryAction() )
     },[])
 
     console.log(products)
@@ -37,6 +42,8 @@ const AllProductsPage = () => {
                 {/* Buscador */}
                 <InputSearch data={products} />
 
+                {/* Filtrar Productos */}
+                <FilterProduct data={categories} />
             </ContentSearchAndCreate>
 
             <TitleGridTable>
@@ -49,16 +56,32 @@ const AllProductsPage = () => {
 
             {/* Contenido de tabla para pantallas LG */}
             {
-                products.length > 0 && // Muestra contenido si hay categorias
+
+                filterProducts.length === 0 
+
+                ? // Si el array de filtros está vacio imprime todos los productos
                 products.map( (product) => (
+                    <GridTableLg key={product.id} data={product} gridCols={5} />
+                ))
+                
+                : // Si el array de filtros tiene datos entonces imprimelo
+                filterProducts.map( (product) => (
                     <GridTableLg key={product.id} data={product} gridCols={5} />
                 ))
             }
 
+
+
             {/* Contenido de la tabla para pantallas Moviles*/}
             {
-                products.length > 0 && /// Muestra contenido si hay categorias
+                filterProducts.length === 0
+                ? // Si el array de filtros está vacio imprime todos los productos
                 products.map( (product) => (
+                    <GridTableMovil key={product.id} data={product} gridCols={2} />
+                ) )
+                
+                : // Si el array de filtros tine datos, entonces imprimelo.
+                filterProducts.map( (product) => (
                     <GridTableMovil key={product.id} data={product} gridCols={2} />
                 ) )
             }
