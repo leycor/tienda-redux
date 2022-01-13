@@ -10,12 +10,12 @@ import { getProductsAction } from '../redux/productsDucks'
 import ContentPage from '../ui-components/ContentPage'
 import GridTableLg from '../ui-components/GridTableLg.jsx'
 import GridTableMovil from '../ui-components/GridTableMovil'
+import InputSearch from '../ui-components/InputSearch'
 import TitlePage from '../ui-components/TitlePage'
 
 // Style Components
 const ContentSearchAndCreate = tw.div`flex flex-col mb-4`
 const TitleGridTable = tw.div`hidden md:grid grid-cols-5 bg-black p-3 text-white font-medium text-xs md:text-sm`
-const InputSearch = tw.input`focus:outline-none text-center lg:text-left mb-2 px-5 py-2 italic border-black border lg:w-60`
 
 const AllProductsPage = () => {
 
@@ -33,7 +33,10 @@ const AllProductsPage = () => {
             <ContentSearchAndCreate>
                 <button className='px-5 py-3 text-white bg-blue-600 font-medium text-sm mb-5 lg:mb-10 lg:w-60'>CREAR PRODUCTO</button>
                 <TitlePage title='Nombre de de producto'></TitlePage>
-                <InputSearch type='text' placeholder='Buscar...'></InputSearch>
+
+                {/* Buscador */}
+                <InputSearch data={products} />
+
             </ContentSearchAndCreate>
 
             <TitleGridTable>

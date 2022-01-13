@@ -32,7 +32,7 @@ const InputSearch = ({data}) => {
             <p>{chooseData}</p>
             :
             <div className='grid bg-gray-300 p-2 mt-3 mb-3'>
-                <p className='font-medium'>{`${ chooseData.price ? 'nada': `La categoria ${chooseData.name} ha sido encontrada con el id #${chooseData.id}`}`}</p>
+                <p className='font-medium'>{`${ chooseData.price ? `El producto ${chooseData.name} ha sido encontrado con el id #${chooseData.id}`: `La categoria ${chooseData.name} ha sido encontrada con el id #${chooseData.id}`}`}</p>
             </div>
             }
 
