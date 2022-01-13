@@ -1,5 +1,6 @@
 import React from 'react'
 import tw from 'twin.macro'
+import { Link } from 'react-router-dom'
 
 // Style Components
 const Logo = tw.p`text-white font-medium`
@@ -31,9 +32,9 @@ const Navbar = () => {
                 <NavContent>
                     <Logo>PANEL ADMINISTRATIVO</Logo>
                     <NavLink>
-                        <p>Dashboard</p>
-                        <p>Login</p>
-                        <p>Register</p>
+                        <Link to='/'>Dashboard</Link>
+                        <Link to='/login'>Login</Link>
+                        <Link to='/register'>Register</Link>
                     </NavLink>
 
             {/* Botón de menú responsivo */}
@@ -49,9 +50,9 @@ const Navbar = () => {
 
         {/* Menú Responsivo */}
         <ResponsiveMenu className={ !toggleState ? '-ml-96': null}>
-            <p>Dashboard</p>
-            <p>Login</p>
-            <p>Register</p>
+            <Link to='/'>Dashboard</Link>
+            <Link to='/login'>Login</Link>
+            <Link to='/register'>Register</Link>
         </ResponsiveMenu>
         </>
     )
