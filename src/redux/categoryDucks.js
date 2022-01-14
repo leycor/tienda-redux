@@ -10,6 +10,7 @@ const initialData = {
 // TIPOS DE ACCIONES
 const GET_CATEGORY = 'GET_CATEGORY'
 const GET_DETAIL_CATEGORY = 'GET_DETAIL_CATEGORY'
+const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
 
 // REDUCTORES
 export const categoryReducer = (state=initialData, action) => {
@@ -19,6 +20,10 @@ export const categoryReducer = (state=initialData, action) => {
             return {...state, array: action.payload }
         case GET_DETAIL_CATEGORY:
             return {...state, detailCategory: action.payload }
+
+        case UPDATE_CATEGORY:
+            return state
+
         default:
             return state
     }
@@ -59,5 +64,15 @@ export const getDetailCategoryAction = (id) => async(dispatch, getState) => {
 
 // Actualizar Categoria
 export const updateCategoryAction = (id, data) => async(dispatch, getState)=> {
-    console.log('Actualizando una categoria')
+    console.log('Actualizando una categoria con el id', id)
+    try {   
+        const response = await axios.put(`http://localhost:3001/api/category/${id}`, data)
+        console.log(response)
+
+        dispatch({
+            type: UPDATE_CATEGORY,
+        })
+    } catch (error) {
+        console.log('No se pudo actualizar la categoria')
+    }
 }

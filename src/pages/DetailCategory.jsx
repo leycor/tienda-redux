@@ -39,7 +39,7 @@ const DetailCategory = () => {
                 <>
                     <TitlePage title='DETALLES DE CATEGORIAS' />
                     <ContentActions>
-                        <Link to={`/products/${detailCategory.id}/update`} className='text-white font-medium px-5 py-3 bg-yellow-500' >Modificar</Link>
+                        <Link to={`/categories/${detailCategory.id}/update`} className='text-white font-medium px-5 py-3 bg-yellow-500' >Modificar</Link>
                         <button className='text-white font-medium px-5 py-3 bg-red-600' >Eliminar</button>
                     </ContentActions>
 

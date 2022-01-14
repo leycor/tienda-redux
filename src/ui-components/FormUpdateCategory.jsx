@@ -1,11 +1,12 @@
+import axios from "axios"
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import tw from 'twin.macro'
 
 // Funciones utilitarias
-import { validationProduct } from '../utils/validations'
-import { updateProductAction } from "../redux/productsDucks";
+import { updateCategoryAction } from "../redux/categoryDucks"
+import { validationCategory } from "../utils/validationCategory"
 
 // Actions
 
@@ -24,13 +25,9 @@ const FormUpdateProduct = ({data, categories}) => {
     const [error, setError] = React.useState('')
     const [inputValue, setInputValue ] = React.useState({
         name: '',
-        stock: '',
-        price: '',
-        categoryId: '',
-
     })
 
-    const { name, stock, price, categoryId} = inputValue
+    const { name } = inputValue
 
     // Guarda valor de input en el estado
     const handleChangeInput = (e) => {
@@ -43,20 +40,13 @@ const FormUpdateProduct = ({data, categories}) => {
         console.log(inputValue)
 
         // Validaciones ======================================================================
-        if(validationProduct(inputValue, setError) === 'formOkey'){
+        if(validationCategory(inputValue, setError) === 'formOkey'){
             // Enviar actualizaciones a la DB
-            const resUpdate = window.confirm('¿Estas seguro que desea actualizar el producto?')
+            const resUpdate = window.confirm('¿Estas seguro que desea actualizar la categoria?')
             if(resUpdate !== true) return false // Confirmación aceptada
-            dispatch( updateProductAction(data.id, inputValue) )
-            navigate(`/products/`)
-            // try {
-            //     const response = await axios.put(`http://localhost:3001/api/products/${data.id}`, inputValue);
-            //     console.log(response)
-            //     setInputValue({name: '', stock:'', price:'', categoyId:''})
-            //     navigate(`/products/${data.id}`)
-            // } catch (error) {
-            //     console.log(error)
-            // }
+            dispatch( updateCategoryAction(data.id, inputValue))
+            navigate(`/categories`)
+
         }
         // Validaciones ======================================================================
 
@@ -77,42 +67,6 @@ const FormUpdateProduct = ({data, categories}) => {
                 value={name}
                 onChange={ (e)=> handleChangeInput(e)} 
                 type='text' />
-            </ContentData>
-
-            <ContentData >
-                <DataTitle >Stock:</DataTitle>
-                <DataDetail
-                name='stock'
-                placeholder={data.stock}
-                value={stock}
-                onChange={ (e)=> handleChangeInput(e)} 
-                type='number' />
-            </ContentData>
-
-            <ContentData >
-                <DataTitle >Precio:</DataTitle>
-                <DataDetail
-                name='price'
-                placeholder={data.price}
-                value={price}
-                onChange={ (e)=> handleChangeInput(e)} 
-                type='number' />
-            </ContentData>
-
-            <ContentData >
-                <DataTitle >Categoria:</DataTitle>
-                <select
-                onChange={ (e)=> handleChangeInput(e)}
-                className='text-gray-600 focus:outline-none w-full p-1 px-2 italic' name="categoryId">
-                    <option name='categoryId' value=''></option>
-                    {
-                        categories.map( category => 
-                            <option
-                            key={category.id} name='categoryId' value={category.id}>{category.name}</option>
-                        )
-                    }
-                </select>
-                {/* <DataDetail >{detailProduct.category.name}</DataDetail> */}
             </ContentData>
 
             <div className='flex justify-end pt-5'>
