@@ -22,6 +22,7 @@ import generateStore from './redux/store'
 
 
 const MainRouter = () => {
+  console.log('Main Router')
 
   const store = generateStore()
   return (
