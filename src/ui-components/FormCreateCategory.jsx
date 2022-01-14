@@ -53,7 +53,7 @@ const FormCreateProduct = () => {
 
     return (
         <ContentProduct>
-            <ProductName >Crear nuevo producto</ProductName>
+            <ProductName >Crear nueva categoria</ProductName>
             <p className='text-yellow-600 text-center my-3'>*** Todos los campos son obligatorios***</p>
             <p className='text-red-600 text-center my-3 font-medium'> {error} </p>
 

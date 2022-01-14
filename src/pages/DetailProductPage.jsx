@@ -1,14 +1,14 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 // Components
 import ContentPage from '../ui-components/ContentPage'
 import TitlePage from '../ui-components/TitlePage'
 
 // Actions
-import { getDetailProduct } from '../redux/productsDucks';
+import { deleteProductAction, getDetailProduct } from '../redux/productsDucks';
 
 // Style Components
 
@@ -22,10 +22,17 @@ const DataDetail = tw.p`uppercase text-gray-600`
 const DetailProductPage = () => {
 
     const {id } = useParams()
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const detailProduct = useSelector(store => store.products.detailProduct)
     console.log(detailProduct)
+
+    const handleDeleteProduct = (id) => {
+        const confirm = window.confirm('¿Estas seguro de eliminar el producto?')
+        if(!confirm) return false // Cancelar acción
+        dispatch( deleteProductAction(id) )
+        navigate('/products')
+    }
 
     React.useEffect( () => {
         dispatch( getDetailProduct(id) )
@@ -41,7 +48,9 @@ const DetailProductPage = () => {
                     <TitlePage title='DETALLES DE PRODUCTOS' />
                     <ContentActions>
                         <Link to={`/products/${detailProduct.id}/update`} className='text-white font-medium px-5 py-3 bg-yellow-500' >Modificar</Link>
-                        <button className='text-white font-medium px-5 py-3 bg-red-600' >Eliminar</button>
+                        <button 
+                        onClick={ () => handleDeleteProduct(detailProduct.id) } 
+                        className='text-white font-medium px-5 py-3 bg-red-600' >Eliminar</button>
                     </ContentActions>
 
                     <ContentProduct>

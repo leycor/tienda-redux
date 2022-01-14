@@ -14,6 +14,7 @@ const FILTER_PRODUCTS = 'FILTER_PRODUCTS'
 const GET_DETAIL_PRODUCT = 'GET_DETAIL_PRODUCT'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 const CREATE_PRODUCT = 'CREATE_PRODUCT'
+const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
 // REDUCERS
 export const productsReducer = (state=initialData, action) => {
@@ -33,6 +34,10 @@ export const productsReducer = (state=initialData, action) => {
 
         case CREATE_PRODUCT:
             return state
+
+        case DELETE_PRODUCT:
+            return state
+
         default:
             return state
     }
@@ -118,4 +123,17 @@ export const updateProductAction = (id, inputValue) => async(dispatch, getState)
         console.log(error)
     }
 
+}
+
+export const deleteProductAction = (id) => async(dispatch, getState) => {
+    console.log('Eliminar el producto', id)
+    try {   
+        const response = await axios.delete(`http://localhost:3001/api/products/${id}`)
+        console.log(response)
+        dispatch({
+            type: DELETE_PRODUCT,
+        })
+    } catch (error) {
+        console.log(error)
+    }
 }

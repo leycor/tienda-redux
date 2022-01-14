@@ -34,11 +34,11 @@ const UpdateCategoryPage = () => {
                 detailCategory !== null // Si el producto existe, muestralo.
                 ?
                 <>
-                    <TitlePage title='ACTUALIZAR PRODUCTO' />
+                    <TitlePage title='ACTUALIZAR CATEGORIA' />
                     <FormUpdateCategory data={detailCategory} />
                 </>
                 :
-                <TitlePage title='Este producto no existe.' />
+                <TitlePage title='Esta categoria no existe.' />
 
             }
 
