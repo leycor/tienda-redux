@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import tw from 'twin.macro'
 
 // Actions
@@ -31,7 +32,7 @@ const AllCategoriesPage = () => {
     return (
         <ContentPage>
             <ContentSearchAndCreate>
-                <button className='px-5 py-3 text-white bg-blue-600 font-medium text-sm mb-5 lg:mb-10 lg:w-60'>CREAR CATEGORIA</button>
+                <Link to='/categories/create' className='px-5 py-3 text-white bg-blue-600 font-medium text-sm mb-5 lg:mb-10 lg:w-60'>CREAR CATEGORIA</Link>
                 <TitlePage title='Nombre de la categoria'></TitlePage>
 
                 {/* Buscador */}

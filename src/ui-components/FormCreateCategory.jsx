@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom"
 import tw from 'twin.macro'
 
 // Funciones utilitarias
-import { validationProduct } from '../utils/validations'
+import { validationCategory } from '../utils/validationCategory'
 
 // Actions
-import { createProductAction } from '../redux/productsDucks'
+import { createCategoryAction } from '../redux/categoryDucks'
+
 
 
 // Style Components
@@ -17,20 +18,16 @@ const ContentData = tw.div`flex gap-4 my-3 px-5 py-2 font-medium border-gray-300
 const DataTitle = tw.p`uppercase`
 const DataDetail = tw.input`text-gray-600 focus:outline-none w-full p-1 px-2 italic`
 
-const FormCreateProduct = ({categories}) => {
+const FormCreateProduct = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate(); 
     const [error, setError] = React.useState('')
     const [inputValue, setInputValue ] = React.useState({
         name: '',
-        stock: '',
-        price: '',
-        categoryId: '',
-
     })
 
-    const { name, stock, price, categoryId} = inputValue
+    const { name } = inputValue
 
     // Guarda valor de input en el estado
     const handleChangeInput = (e) => {
@@ -43,12 +40,12 @@ const FormCreateProduct = ({categories}) => {
         console.log(inputValue)
 
         // Validaciones ======================================================================
-        if(validationProduct(inputValue, setError) === 'formOkey'){
+        if(validationCategory(inputValue, setError) === 'formOkey'){
             // Enviar actualizaciones a la DB
-            const resUpdate = window.confirm('¿Estas seguro que desea crear el producto?')
+            const resUpdate = window.confirm('¿Estas seguro que desea crear la categorya?')
             if(resUpdate !== true) return false // Confirmación aceptada
-            dispatch( createProductAction(inputValue) )
-            navigate(`/products/`)
+            dispatch( createCategoryAction(inputValue) )
+            navigate(`/categories/`)
         }
         // Validaciones ======================================================================
 
@@ -65,46 +62,10 @@ const FormCreateProduct = ({categories}) => {
                 {/* <DataDetail >{detailProduct.name}</DataDetail> */}
                 <DataDetail
                 name='name'
-                placeholder='Nombre de producto'
+                placeholder='Nombre de la categoria'
                 value={name}
                 onChange={ (e)=> handleChangeInput(e)} 
                 type='text' />
-            </ContentData>
-
-            <ContentData >
-                <DataTitle >Stock:</DataTitle>
-                <DataDetail
-                name='stock'
-                placeholder='Stock'
-                value={stock}
-                onChange={ (e)=> handleChangeInput(e)} 
-                type='number' />
-            </ContentData>
-
-            <ContentData >
-                <DataTitle >Precio:</DataTitle>
-                <DataDetail
-                name='price'
-                placeholder='Precio'
-                value={price}
-                onChange={ (e)=> handleChangeInput(e)} 
-                type='number' />
-            </ContentData>
-
-            <ContentData >
-                <DataTitle >Categoria:</DataTitle>
-                <select
-                onChange={ (e)=> handleChangeInput(e)}
-                className='text-gray-600 focus:outline-none w-full p-1 px-2 italic' name="categoryId">
-                    <option name='categoryId' value=''></option>
-                    {
-                        categories.map( category => 
-                            <option
-                            key={category.id} name='categoryId' value={category.id}>{category.name}</option>
-                        )
-                    }
-                </select>
-                {/* <DataDetail >{detailProduct.category.name}</DataDetail> */}
             </ContentData>
 
             <div className='flex justify-end pt-5'>

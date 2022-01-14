@@ -15,6 +15,7 @@ import UpdateProduct from './pages/UpdateProduct';
 import DetailCategory from './pages/DetailCategory';
 import UpdateCategory from './pages/UpdateCategory';
 import CreateProductPage from './pages/CreateProductPage';
+import CreateCategoryPage from './pages/CreateCategoryPage';
 
 // Store
 import generateStore from './redux/store'
@@ -33,6 +34,7 @@ const MainRouter = () => {
         <Route path='/' element={ <AdminPage />} />
         <Route path='/categories' element={ <AllCategoriesPage />} />
         <Route path='/categories/:id' element={ <DetailCategory />} />
+        <Route path='/categories/create' element={ <CreateCategoryPage />} />
         <Route path='/categories/:id/update' element={ <UpdateCategory />} />
 
         <Route path='/products' element={ <AllProductsPage />} />

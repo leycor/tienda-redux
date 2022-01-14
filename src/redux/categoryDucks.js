@@ -11,6 +11,7 @@ const initialData = {
 const GET_CATEGORY = 'GET_CATEGORY'
 const GET_DETAIL_CATEGORY = 'GET_DETAIL_CATEGORY'
 const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
+const CREATE_CATEGORY = 'CREATE_CATEGORY'
 
 // REDUCTORES
 export const categoryReducer = (state=initialData, action) => {
@@ -22,6 +23,9 @@ export const categoryReducer = (state=initialData, action) => {
             return {...state, detailCategory: action.payload }
 
         case UPDATE_CATEGORY:
+            return state
+
+        case CREATE_CATEGORY:
             return state
 
         default:
@@ -74,5 +78,20 @@ export const updateCategoryAction = (id, data) => async(dispatch, getState)=> {
         })
     } catch (error) {
         console.log('No se pudo actualizar la categoria')
+    }
+}
+
+// Crear categoria
+export const createCategoryAction = (category) => async(dispatch, getState) => {
+    console.log('Crear la categoria', category)
+    try {
+        const response = await axios.post(`http://localhost:3001/api/category`, category)
+        console.log(response)
+
+        dispatch({
+            type: CREATE_CATEGORY,
+        })
+    } catch (error) {
+        console.log('No se pudo crear la categoria')
     }
 }

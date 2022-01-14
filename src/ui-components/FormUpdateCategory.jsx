@@ -17,7 +17,7 @@ const ContentData = tw.div`flex gap-4 my-3 px-5 py-2 font-medium border-gray-300
 const DataTitle = tw.p`uppercase`
 const DataDetail = tw.input`text-gray-600 focus:outline-none w-full p-1 px-2 italic`
 
-const FormUpdateProduct = ({data, categories}) => {
+const FormUpdateCategory = ({data, categories}) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate(); 
@@ -76,4 +76,4 @@ const FormUpdateProduct = ({data, categories}) => {
     )
 }
 
-export default FormUpdateProduct
+export default FormUpdateCategory
