@@ -7,26 +7,23 @@ import ContentPage from '../ui-components/ContentPage'
 import TitlePage from '../ui-components/TitlePage'
 
 // Actions
-import { getDetailProduct } from '../redux/productsDucks';
-import FormUpdateProduct from '../ui-components/FormUpdateProduct';
-import { getCategoryAction } from '../redux/categoryDucks';
+import FormUpdateCategory from '../ui-components/FormUpdateCategory';
+import { getDetailCategoryAction } from '../redux/categoryDucks';
 
 // Style Components
 
 
-const UpdateProduct = () => {
+const UpdateCategoryPage = () => {
 
     
     const {id } = useParams()
     const dispatch = useDispatch()
-    const detailProduct = useSelector(store => store.products.detailProduct)
-    const categories = useSelector(store => store.categories.array)
-    console.log(detailProduct)
+    const detailCategory = useSelector(store => store.categories.detailCategory)
+    console.log(detailCategory)
 
 
     React.useEffect( () => {
-        dispatch( getDetailProduct(id) )
-        dispatch( getCategoryAction() ) 
+        dispatch( getDetailCategoryAction(id))
 
     },[])
 
@@ -34,11 +31,11 @@ const UpdateProduct = () => {
     return (
         <ContentPage>
             {
-                detailProduct !== null // Si el producto existe, muestralo.
+                detailCategory !== null // Si el producto existe, muestralo.
                 ?
                 <>
                     <TitlePage title='ACTUALIZAR PRODUCTO' />
-                    <FormUpdateProduct data={detailProduct} categories={categories} />
+                    <FormUpdateCategory data={detailCategory} />
                 </>
                 :
                 <TitlePage title='Este producto no existe.' />
@@ -49,4 +46,4 @@ const UpdateProduct = () => {
     )
 }
 
-export default UpdateProduct
+export default UpdateCategoryPage

@@ -9,11 +9,11 @@ import LoginPage from './pages/LoginPage';
 import NoMatchPage from './pages/NoMatchPage';
 import RegisterPage from './pages/RegisterPage';
 import AllCategoriesPage from './pages/AllCategoriesPage';
-import DetailProduct from './pages/DetailProduct';
+import DetailProductPage from './pages/DetailProductPage';
 import AllProductsPage from './pages/AllProductsPage';
-import UpdateProduct from './pages/UpdateProduct';
-import DetailCategory from './pages/DetailCategory';
-import UpdateCategory from './pages/UpdateCategory';
+import UpdateProductPage from './pages/UpdateProductPage';
+import DetailCategoryPage from './pages/DetailCategoryPage';
+import UpdateCategoryPage from './pages/UpdateCategoryPage';
 import CreateProductPage from './pages/CreateProductPage';
 import CreateCategoryPage from './pages/CreateCategoryPage';
 
@@ -33,14 +33,14 @@ const MainRouter = () => {
       <Routes>
         <Route path='/' element={ <AdminPage />} />
         <Route path='/categories' element={ <AllCategoriesPage />} />
-        <Route path='/categories/:id' element={ <DetailCategory />} />
+        <Route path='/categories/:id' element={ <DetailCategoryPage />} />
         <Route path='/categories/create' element={ <CreateCategoryPage />} />
-        <Route path='/categories/:id/update' element={ <UpdateCategory />} />
+        <Route path='/categories/:id/update' element={ <UpdateCategoryPage />} />
 
         <Route path='/products' element={ <AllProductsPage />} />
-        <Route path='/products/:id' element={ <DetailProduct />} />
+        <Route path='/products/:id' element={ <DetailProductPage />} />
         <Route path='/products/create' element={ <CreateProductPage />} />
-        <Route path='/products/:id/update' element={ <UpdateProduct />} />
+        <Route path='/products/:id/update' element={ <UpdateProductPage />} />
 
         <Route path='/login' element={ <LoginPage />} />
         <Route path='/register' element={ <RegisterPage />} />

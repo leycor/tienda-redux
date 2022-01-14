@@ -19,7 +19,7 @@ const ContentData = tw.div`flex gap-4 my-3 px-5 py-2 font-medium border-gray-300
 const DataTitle = tw.p`uppercase`
 const DataDetail = tw.p`uppercase text-gray-600`
 
-const DetailProduct = () => {
+const DetailProductPage = () => {
 
     const {id } = useParams()
 
@@ -88,4 +88,4 @@ const DetailProduct = () => {
     )
 }
 
-export default DetailProduct
+export default DetailProductPage
