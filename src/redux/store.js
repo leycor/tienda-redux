@@ -4,11 +4,13 @@ import thunk  from 'redux-thunk'
 // Reducers
 import { categoryReducer } from './categoryDucks';
 import { productsReducer } from './productsDucks';
+import { usersReducer } from './userDucks';
 
 
 const rootReducer = combineReducers({
     categories: categoryReducer,
     products: productsReducer,
+    users: usersReducer,
 })
 
 // Verificar si la extensión redux_devs_tools está instalada.

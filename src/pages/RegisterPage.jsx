@@ -1,5 +1,9 @@
 import React from 'react'
+import validator from 'validator';
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import tw from 'twin.macro'
+import { userCreatedAction } from '../redux/userDucks';
 
 // Style Component
 const ParentContainer = tw.div`min-h-screen flex items-center justify-center mx-5`
@@ -12,29 +16,78 @@ const InputForm = tw.input`focus:outline-none italic w-full h-8 border-black bor
 const ButtonForm = tw.button`w-full py-2 bg-black text-white font-medium`
 
 const RegisterPage = () => {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [error, setError] = React.useState('')
+    const [inputValue, setInputValue ] = React.useState({
+        email: '',
+        password: '',
+        passwordConfirm: ''
+    })
+
+    const { email, password, passwordConfirm } = inputValue
+
+    // Capturar valor de los input
+    const handleChangeInput = (e) => {
+        setInputValue({...inputValue, [e.target.name]: e.target.value})
+    }
+
+    const handleSendForm = () =>{
+
+        // Validaciones
+        if(email === '') return setError('El email no puede estar vacio')
+        if(!validator.isEmail(email)) return setError('Email invalido')
+
+        if(password.length < 5 || passwordConfirm.length < 5) return setError('La contraseña tiene que tener un minimo de 5 caracteres')
+        if(password !== passwordConfirm ) return setError('Las contraseñas no coinciden')
+
+        dispatch( userCreatedAction(inputValue) )
+        navigate('/login')
+    }
+
     return (
         <ParentContainer>
             <CardContainer>
                     <TitleCard>CREAR CUENTA</TitleCard>
-
                     <ContentForm>
-
+                    {
+                        error !== '' && <p className='mb-4 font-medium text-center uppercase text-red-600 text-sm'>{error}</p>
+                    }
                         <ContentInput>
                             <LabelForm>Correo electronico</LabelForm>
-                            <InputForm type='email' placeholder='Ingresa tu correo electornico'></InputForm>
+                            <InputForm
+                            value={email}
+                            name='email'
+                            type='email' 
+                            placeholder='Ingresa tu correo electornico'
+                            onChange={ (e) => handleChangeInput(e)}
+                            ></InputForm>
                         </ContentInput>
 
                         <ContentInput>
                             <LabelForm>Contraseña</LabelForm>
-                            <InputForm type='password' placeholder='Ingresa tu contraseña'></InputForm>
+                            <InputForm
+                            value={password}
+                            name='password' 
+                            type='password' 
+                            placeholder='Ingresa tu contraseña'
+                            onChange={ (e) => handleChangeInput(e)}
+                            ></InputForm>
                         </ContentInput>
 
                         <ContentInput>
                             <LabelForm>Repetir contraseña</LabelForm>
-                            <InputForm type='password' placeholder='Ingresa tu contraseña'></InputForm>
+                            <InputForm
+                            value={passwordConfirm}
+                            name='passwordConfirm'
+                            type='password' 
+                            placeholder='Ingresa tu contraseña'
+                            onChange={ (e) => handleChangeInput(e)}
+                            ></InputForm>
                         </ContentInput>
 
-                        <ButtonForm>REGISTRARSE</ButtonForm>
+                        <ButtonForm onClick={ handleSendForm }>REGISTRARSE</ButtonForm>
                     </ContentForm>
             </CardContainer>
         </ParentContainer>
