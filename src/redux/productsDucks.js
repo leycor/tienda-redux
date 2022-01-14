@@ -13,6 +13,7 @@ const GET_PRODUCTS = 'GET_PRODUCTS'
 const FILTER_PRODUCTS = 'FILTER_PRODUCTS'
 const GET_DETAIL_PRODUCT = 'GET_DETAIL_PRODUCT'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+const CREATE_PRODUCT = 'CREATE_PRODUCT'
 
 // REDUCERS
 export const productsReducer = (state=initialData, action) => {
@@ -28,6 +29,9 @@ export const productsReducer = (state=initialData, action) => {
             return {...state, detailProduct: action.payload}
 
         case UPDATE_PRODUCT:
+            return state
+
+        case CREATE_PRODUCT:
             return state
         default:
             return state
@@ -81,6 +85,21 @@ export const getDetailProduct = (id) => async(dispatch, getState) => {
 
     } catch (error) {
         console.log('Error al buscar el producto', error)
+    }
+}
+
+// Crear producto
+export const createProductAction = (product) => async(dispatch, getState) => {
+    console.log('Crear producto')
+    try {
+        const response = await axios.post(`http://localhost:3001/api/products`, product)
+        console.log(response)
+
+        dispatch({
+            type: CREATE_PRODUCT,
+        })
+    } catch (error) {
+        console.log('No se pudo crear el producto', error)
     }
 }
 
