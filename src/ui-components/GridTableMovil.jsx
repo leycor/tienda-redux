@@ -29,7 +29,7 @@ const GridTableMovil = ({data,gridCols}) => {
                     <Detail className='text-green-600' > { data.price}$ </Detail>
 
                 <Title >Categoria</Title>
-                    <Detail > { data.category.name} </Detail>
+                    <Detail > { data.category?.name} </Detail>
 
                 <Title >Acciones</Title>
                     <Detail >Ver detalles</Detail>

@@ -73,7 +73,7 @@ const DetailProductPage = () => {
 
                         <ContentData >
                             <DataTitle >Categoria:</DataTitle>
-                            <DataDetail >{detailProduct.category.name}</DataDetail>
+                            <DataDetail >{detailProduct.category?.name}</DataDetail>
                         </ContentData>
 
                         <ContentData >

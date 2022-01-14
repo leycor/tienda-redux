@@ -22,7 +22,7 @@ const GridTableLg = ({data, gridCols}) => {
             <p>{`#${data.id} ${data.name}`}</p>
             <p>{data.stock}</p>
             <p className='text-green-700'>{data.price}$</p>
-            <p>{data.category.name}</p>
+            <p>{data.category?.name}</p>
             <Link to={`/products/${data.id}`} className='text-blue-400'>Ver detalles</Link>
         </ContentGridTable>
         :
