@@ -125,6 +125,7 @@ export const updateProductAction = (id, inputValue) => async(dispatch, getState)
 
 }
 
+// Eliminar un producto
 export const deleteProductAction = (id) => async(dispatch, getState) => {
     console.log('Eliminar el producto', id)
     try {   

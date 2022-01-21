@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import tw from 'twin.macro'
 
 // Funciones utilitarias
@@ -21,11 +21,14 @@ const DataDetail = tw.input`text-gray-600 focus:outline-none w-full p-1 px-2 ita
 const FormCreateProduct = () => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const [categoryCreated, setCategoryCreated ] = React.useState(false) 
     const [error, setError] = React.useState('')
     const [inputValue, setInputValue ] = React.useState({
         name: '',
     })
+
+    console.log('Estado de categoria', categoryCreated)
 
     const { name } = inputValue
 
@@ -37,15 +40,14 @@ const FormCreateProduct = () => {
     // Enviar actualizaciones
     const handleSendForm = async(e) => {
         e.preventDefault()
-        console.log(inputValue)
 
         // Validaciones ======================================================================
         if(validationCategory(inputValue, setError) === 'formOkey'){
             // Enviar actualizaciones a la DB
-            const resUpdate = window.confirm('¿Estas seguro que desea crear la categorya?')
+            const resUpdate = window.confirm('¿Estas seguro que desea crear la categoria?')
             if(resUpdate !== true) return false // Confirmación aceptada
-            dispatch( createCategoryAction(inputValue) )
-            navigate(`/categories/`)
+            dispatch( createCategoryAction(inputValue, setError, setCategoryCreated) )
+            setInputValue({name: ''})
         }
         // Validaciones ======================================================================
 
@@ -55,7 +57,11 @@ const FormCreateProduct = () => {
         <ContentProduct>
             <ProductName >Crear nueva categoria</ProductName>
             <p className='text-yellow-600 text-center my-3'>*** Todos los campos son obligatorios***</p>
-            <p className='text-red-600 text-center my-3 font-medium'> {error} </p>
+            {
+                categoryCreated ?
+                <Link to='/categories' className='text-green-600 text-center my-3 font-medium'>La categoria ha sido creada, click aquí para ver lista de categorias</Link>
+                :<p className='text-red-600 text-center my-3 font-medium'> {error} </p>
+            }
 
             <ContentData >
                 <DataTitle >Nombre:</DataTitle>
