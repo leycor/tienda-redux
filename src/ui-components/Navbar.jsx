@@ -1,6 +1,11 @@
 import React from 'react'
 import tw from 'twin.macro'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+
+// Actions
+import { userLogoutAction } from '../redux/userDucks'
 
 // Style Components
 const Logo = tw.p`text-white font-medium`
@@ -14,10 +19,11 @@ const LineResponsiveMenu = tw.div`bg-white w-full h-1`
 
 const ResponsiveMenu = tw.div`z-40 fixed flex gap-3 flex-col px-7 opacity-90 bg-black py-5  h-screen w-64 duration-300 md:-ml-96 text-white`
 
-const Navbar = () => {
-
+const Navbar = ({isAuth}) => {
     // Estado para mostrar y ocultar el menú responsivo
     const [ toggleState, setToggleState] = React.useState( false )
+
+    const dispatch = useDispatch()
 
     // Función que controla el menú responsivo
     const handleToggleResponsiveMenu = () => {
@@ -33,8 +39,7 @@ const Navbar = () => {
                     <Logo>PANEL ADMINISTRATIVO</Logo>
                     <NavLink>
                         <Link to='/'>Dashboard</Link>
-                        <Link to='/login'>Login</Link>
-                        <Link to='/register'>Register</Link>
+                        { !isAuth ? <Link to='/login'>Login</Link> : <p className='cursor-pointer' onClick={ () => dispatch( userLogoutAction()) }>Logout</p>}
                     </NavLink>
 
             {/* Botón de menú responsivo */}

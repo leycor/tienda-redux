@@ -7,7 +7,7 @@ import tw from 'twin.macro';
 
 // Actions
 import { userLoginAction } from '../redux/userDucks';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Style Component
 const ContentForm = tw.div`px-8  py-12`
@@ -65,8 +65,8 @@ const LoginForm = ({setError}) => {
                 type='password' 
                 placeholder='Ingresa tu contraseña'></InputForm>
             </ContentInput>
-
             <ButtonForm onClick={ handleSendForm }>INGRESAR</ButtonForm>
+            <p className='text-xs mt-8'>¿No tienes cuenta? <Link to='/register' className='font-bold text-blue-600'>¡REGISTRATE AQUÍ!</Link></p>
         </ContentForm>
     )
 }

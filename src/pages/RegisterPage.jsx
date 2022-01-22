@@ -1,7 +1,7 @@
 import React from 'react'
 import validator from 'validator';
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import tw from 'twin.macro'
 import { userCreatedAction } from '../redux/userDucks';
 
@@ -88,6 +88,7 @@ const RegisterPage = () => {
                         </ContentInput>
 
                         <ButtonForm onClick={ handleSendForm }>REGISTRARSE</ButtonForm>
+                        <p className='text-xs mt-8'>¿Ya tienes cuenta? <Link to='/login' className='font-bold text-blue-600'>ACCEDE AQUÍ</Link></p>
                     </ContentForm>
             </CardContainer>
         </ParentContainer>

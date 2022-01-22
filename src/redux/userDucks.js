@@ -10,6 +10,7 @@ const initialData = {
 // TIPOS DE ACCIONES
 const CREATE_USER  = 'CREATE_USER'
 const LOGIN_USER  = 'LOGIN_USER'
+const USER_LOGOUT = 'USER_LOGOUT'
 
 // REDUCERS
 
@@ -20,6 +21,9 @@ export const usersReducer = (state=initialData, action) => {
 
         case LOGIN_USER:
             return {...state, token: action.payload, login: true}
+
+        case USER_LOGOUT:
+            return {...state, token: '', login: false}
     
         default:
             return state;
@@ -63,4 +67,12 @@ export const userLoginAction = (user,setError, navigate) => async(dispatch, getS
     } catch (error) {
         console.log(error)
     }   
+}
+
+export const userLogoutAction = () => async(dispatch, getState) => {
+    console.log('USER_LOGOUT: Cerrar sesión')
+    dispatch({
+        type: USER_LOGOUT,
+
+    })
 }
