@@ -21,7 +21,7 @@ const ContentSearchAndCreate = tw.div`flex flex-col mb-4`
 const TitleGridTable = tw.div`hidden md:grid grid-cols-5 bg-black p-3 text-white font-medium text-xs md:text-sm`
 
 const AllProductsPage = () => {
-
+    console.log('Ejecutando componente AllProductPage')
     const dispatch = useDispatch()
     const products = useSelector( store => store.products.array )
     const filterProducts = useSelector( store => store.products.filter )

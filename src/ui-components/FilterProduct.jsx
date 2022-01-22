@@ -9,7 +9,6 @@ const FilterProduct = ({data}) => {
 
     const dispatch = useDispatch()
     const filterValue = useSelector(store => store.products.filterValue)
-    console.log('Me ejecuté', filterValue)
 
     const handleFilterProduct = (e) => {
         console.log(e.target.value)

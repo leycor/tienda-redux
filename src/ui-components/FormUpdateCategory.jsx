@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import tw from 'twin.macro'
 
 // Funciones utilitarias
@@ -20,7 +20,6 @@ const DataDetail = tw.input`text-gray-600 focus:outline-none w-full p-1 px-2 ita
 const FormUpdateCategory = ({data}) => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate(); 
     const [error, setError] = React.useState('')
     const [categoryUpdate, setCategoryUpdate] = React.useState(false)
     const [inputValue, setInputValue ] = React.useState({

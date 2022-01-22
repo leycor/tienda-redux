@@ -94,8 +94,7 @@ export const updateCategoryAction = (id, data,setError,setCategoryCreated) => as
 
 // Crear categoria
 export const createCategoryAction = (category, setError, setCategoryCreated) => async(dispatch, getState) => {
-
-    console.log('Petición POST para crear la categoria', category)
+    console.log('CREATE_CATEGORY: CREAR LA CATEGORIA', category)
     try {
         const response = await axios.post(`http://localhost:3001/api/category`, category)
         console.log(response.data.error)
@@ -119,7 +118,7 @@ export const createCategoryAction = (category, setError, setCategoryCreated) => 
 
 // Eliminar Categoria
 export const deleteCategoryAction = (id) => async(dispatch, getState) => {
-    console.log('Eliminar categoria', id)
+    console.log('DELETE_CATEGORY: ELIMINAR CATEGORIA CON EL ID', id)
     try {   
         const response = await axios.delete(`http://localhost:3001/api/category/${id}`)
         console.log(response)

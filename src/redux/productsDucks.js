@@ -5,7 +5,7 @@ const initialData = {
     array: [],
     filter:[],
     filterValue: 'todos',
-    detailProduct: null,
+    detailProduct: '',
 }
 
 // TIPOS DE ACCIONES
@@ -63,7 +63,7 @@ export const getProductsAction = () => async(dispatch, getState) => {
 
 // Filtrar productos
 export const filterProductAction = ( filter ) => async( dispatch, getState) => {
-    console.log('La acción tomó como parametro', filter)
+    console.log('FILTER_PRODUCTS: FILTRAR PRODUCTOS CON EL PARAMETRO', filter)
     
     const products = getState().products.array
     const result = products.filter( product => product.category.name.toLocaleLowerCase() === filter.toLocaleLowerCase() )
@@ -79,7 +79,7 @@ export const filterProductAction = ( filter ) => async( dispatch, getState) => {
 
 // Obtener un producto
 export const getDetailProduct = (id) => async(dispatch, getState) => {
-    console.log('Estoy buscando producto con el id', id)
+    console.log('GET_DETAIL_PRODUCT: BUSCAR PRODUCTO CON ID', id)
     try {
         const result = await axios.get(`http://localhost:3001/api/products/${id}`)
 
@@ -94,15 +94,18 @@ export const getDetailProduct = (id) => async(dispatch, getState) => {
 }
 
 // Crear producto
-export const createProductAction = (product) => async(dispatch, getState) => {
-    console.log('Crear producto')
+export const createProductAction = (product,setError,setCreatedProduct) => async(dispatch, getState) => {
+    console.log('CREATE_PRODUCT: CREAR PRODUCTO', product)
     try {
         const response = await axios.post(`http://localhost:3001/api/products`, product)
-        console.log(response)
+        console.log(response.data.error)
+        if(response.data.error) return setError(response.data.data)
 
         dispatch({
             type: CREATE_PRODUCT,
         })
+
+        setCreatedProduct(true)
     } catch (error) {
         console.log('No se pudo crear el producto', error)
     }

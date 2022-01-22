@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import tw from 'twin.macro'
 
 // Funciones utilitarias
@@ -20,8 +20,8 @@ const DataDetail = tw.input`text-gray-600 focus:outline-none w-full p-1 px-2 ita
 const FormCreateProduct = ({categories}) => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate(); 
     const [error, setError] = React.useState('')
+    const [createdProduct, setCreatedProduct ] = React.useState(false)
     const [inputValue, setInputValue ] = React.useState({
         name: '',
         stock: '',
@@ -47,8 +47,8 @@ const FormCreateProduct = ({categories}) => {
             // Enviar actualizaciones a la DB
             const resUpdate = window.confirm('¿Estas seguro que desea crear el producto?')
             if(resUpdate !== true) return false // Confirmación aceptada
-            dispatch( createProductAction(inputValue) )
-            navigate(`/products/`)
+            dispatch( createProductAction(inputValue,setError,setCreatedProduct) )
+            setInputValue({name: '', stock: '', price: '', categoryId: ''})
         }
         // Validaciones ======================================================================
 
@@ -58,7 +58,11 @@ const FormCreateProduct = ({categories}) => {
         <ContentProduct>
             <ProductName >Crear nuevo producto</ProductName>
             <p className='text-yellow-600 text-center my-3'>*** Todos los campos son obligatorios***</p>
-            <p className='text-red-600 text-center my-3 font-medium'> {error} </p>
+            {
+                createdProduct ?
+                <Link to='/products' className='text-green-600 text-center my-3 font-medium'>El producto ha sido creado, click aquí para ver lista de productos</Link>
+                :<p className='text-red-600 text-center my-3 font-medium'> {error} </p>
+            }
 
             <ContentData >
                 <DataTitle >Nombre:</DataTitle>

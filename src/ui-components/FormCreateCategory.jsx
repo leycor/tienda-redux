@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from "react-router-dom"
+import { Link  } from "react-router-dom"
 import tw from 'twin.macro'
 
 // Funciones utilitarias
@@ -21,7 +21,6 @@ const DataDetail = tw.input`text-gray-600 focus:outline-none w-full p-1 px-2 ita
 const FormCreateProduct = () => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate();
     const [categoryCreated, setCategoryCreated ] = React.useState(false) 
     const [error, setError] = React.useState('')
     const [inputValue, setInputValue ] = React.useState({
