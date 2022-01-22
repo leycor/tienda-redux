@@ -1,4 +1,5 @@
 import axios from "axios"
+const PORT = 3001
 
 
 // CONSTANTES
@@ -46,7 +47,7 @@ export const getCategoryAction = () => async(dispatch, getState) => {
     console.log('GET_CATEGORY: OBTENIENDO TODAS LAS CATEGORIAS')
 
     try {
-        const result = await axios.get('http://localhost:3001/api/category')
+        const result = await axios.get(`http://localhost:${PORT}/api/category`)
         dispatch({
             type: GET_CATEGORY,
             payload : result.data
@@ -62,7 +63,7 @@ export const getCategoryAction = () => async(dispatch, getState) => {
 export const getDetailCategoryAction = (id) => async(dispatch, getState) => {
     console.log('GET_DETAIL_CATEGORY: OBTENIENDO CATEGORIA CON EL ID', id)
     try{
-        const result = await axios.get(`http://localhost:3001/api/category/${id}`)
+        const result = await axios.get(`http://localhost:${PORT}/api/category/${id}`)
         dispatch({
             type: GET_DETAIL_CATEGORY,
             payload: result.data
@@ -77,7 +78,7 @@ export const getDetailCategoryAction = (id) => async(dispatch, getState) => {
 export const updateCategoryAction = (id, data,setError,setCategoryCreated) => async(dispatch, getState)=> {
     console.log('UPDATE_CATEGORY: ACTUALIZAR CATEGORIA CON EL ID', id)
     try {   
-        const response = await axios.put(`http://localhost:3001/api/category/${id}`, data)
+        const response = await axios.put(`http://localhost:${PORT}/api/category/${id}`, data)
         console.log(response.data.error)
         // Si en la petición obtengo como respuesta un error, envio el mensaje al componente para avisar al usuario
         if(response.data.error) return setError(response.data.data)
@@ -96,7 +97,7 @@ export const updateCategoryAction = (id, data,setError,setCategoryCreated) => as
 export const createCategoryAction = (category, setError, setCategoryCreated) => async(dispatch, getState) => {
     console.log('CREATE_CATEGORY: CREAR LA CATEGORIA', category)
     try {
-        const response = await axios.post(`http://localhost:3001/api/category`, category)
+        const response = await axios.post(`http://localhost:${PORT}/api/category`, category)
         console.log(response.data.error)
 
         // Si en la petición obtengo como respuesta un error, envio el mensaje al componente para avisar al usuario
@@ -120,7 +121,7 @@ export const createCategoryAction = (category, setError, setCategoryCreated) => 
 export const deleteCategoryAction = (id) => async(dispatch, getState) => {
     console.log('DELETE_CATEGORY: ELIMINAR CATEGORIA CON EL ID', id)
     try {   
-        const response = await axios.delete(`http://localhost:3001/api/category/${id}`)
+        const response = await axios.delete(`http://localhost:${PORT}/api/category/${id}`)
         console.log(response)
         dispatch({
             type: DELETE_CATEGORY,

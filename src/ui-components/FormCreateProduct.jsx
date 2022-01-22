@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from "react-router-dom"
+import { Link  } from "react-router-dom"
 import tw from 'twin.macro'
 
 // Funciones utilitarias
@@ -30,7 +30,7 @@ const FormCreateProduct = ({categories}) => {
 
     })
 
-    const { name, stock, price, categoryId} = inputValue
+    const { name, stock, price } = inputValue
 
     // Guarda valor de input en el estado
     const handleChangeInput = (e) => {

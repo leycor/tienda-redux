@@ -1,4 +1,5 @@
 import axios from 'axios'
+const PORT = 3001
 
 // Constantes
 const initialData = {
@@ -50,7 +51,7 @@ export const productsReducer = (state=initialData, action) => {
 export const getProductsAction = () => async(dispatch, getState) => {
     console.log('GET_PRODUCTS: OBTENIENDO TODOS LOS PRODUCTOS')
     try {
-        const result = await axios.get('http://localhost:3001/api/products')
+        const result = await axios.get(`http://localhost:${PORT}/api/products`)
         dispatch({
             type: GET_PRODUCTS,
             payload : result.data
@@ -81,7 +82,7 @@ export const filterProductAction = ( filter ) => async( dispatch, getState) => {
 export const getDetailProduct = (id) => async(dispatch, getState) => {
     console.log('GET_DETAIL_PRODUCT: BUSCAR PRODUCTO CON ID', id)
     try {
-        const result = await axios.get(`http://localhost:3001/api/products/${id}`)
+        const result = await axios.get(`http://localhost:${PORT}/api/products/${id}`)
 
         dispatch({
             type: GET_DETAIL_PRODUCT,
@@ -97,7 +98,7 @@ export const getDetailProduct = (id) => async(dispatch, getState) => {
 export const createProductAction = (product,setError,setCreatedProduct) => async(dispatch, getState) => {
     console.log('CREATE_PRODUCT: CREAR PRODUCTO', product)
     try {
-        const response = await axios.post(`http://localhost:3001/api/products`, product)
+        const response = await axios.post(`http://localhost:${PORT}/api/products`, product)
         console.log(response.data.error)
         if(response.data.error) return setError(response.data.data)
 
@@ -116,7 +117,7 @@ export const createProductAction = (product,setError,setCreatedProduct) => async
 export const updateProductAction = (id, inputValue,setError,setUpdateProduct) => async(dispatch, getState) => {
     console.log('UPDATE_PRODUCT: ACTUALIZAR PRODUCTO CON EL ID', inputValue)
     try {
-        const response = await axios.put(`http://localhost:3001/api/products/${id}`, inputValue);
+        const response = await axios.put(`http://localhost:${PORT}/api/products/${id}`, inputValue);
         console.log(response.data.error)
         if(response.data.error) return setError(response.data.data)
 
@@ -135,7 +136,7 @@ export const updateProductAction = (id, inputValue,setError,setUpdateProduct) =>
 export const deleteProductAction = (id) => async(dispatch, getState) => {
     console.log('DELETE_PRODUCT: ELIMINAR PRODUCTO CON EL ID', id)
     try {   
-        const response = await axios.delete(`http://localhost:3001/api/products/${id}`)
+        const response = await axios.delete(`http://localhost:${PORT}/api/products/${id}`)
         console.log(response)
         dispatch({
             type: DELETE_PRODUCT,

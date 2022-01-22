@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import tw from 'twin.macro'
 
 // Funciones utilitarias
@@ -21,7 +21,6 @@ const FormUpdateProduct = ({data, categories}) => {
     console.log('Ejecutando componente UpdateProduct')
     const [updateProduct, setUpdateProduct ] = React.useState(false)
     const dispatch = useDispatch()
-    const navigate = useNavigate(); 
     const [error, setError] = React.useState('')
     const [inputValue, setInputValue ] = React.useState({
         name: '' ,
@@ -31,7 +30,7 @@ const FormUpdateProduct = ({data, categories}) => {
 
     })
 
-    const { name, stock, price, categoryId} = inputValue
+    const { name, stock, price, } = inputValue
 
     React.useEffect( () => {
         if(data){
