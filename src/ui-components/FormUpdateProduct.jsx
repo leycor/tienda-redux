@@ -79,7 +79,7 @@ const FormUpdateProduct = ({data, categories}) => {
                 {/* <DataDetail >{detailProduct.name}</DataDetail> */}
                 <DataDetail
                 name='name'
-                placeholder={data.name}
+                placeholder='Nombre del producto'
                 value={name}
                 onChange={ (e)=> handleChangeInput(e)} 
                 type='text' />
@@ -89,7 +89,7 @@ const FormUpdateProduct = ({data, categories}) => {
                 <DataTitle >Stock:</DataTitle>
                 <DataDetail
                 name='stock'
-                placeholder={data.stock}
+                placeholder='Cantidad en stock'
                 value={stock}
                 onChange={ (e)=> handleChangeInput(e)} 
                 type='number' />
@@ -99,7 +99,7 @@ const FormUpdateProduct = ({data, categories}) => {
                 <DataTitle >Precio:</DataTitle>
                 <DataDetail
                 name='price'
-                placeholder={data.price}
+                placeholder='Precio del producto'
                 value={price}
                 onChange={ (e)=> handleChangeInput(e)} 
                 type='number' />

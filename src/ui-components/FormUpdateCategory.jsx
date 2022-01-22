@@ -27,6 +27,12 @@ const FormUpdateCategory = ({data}) => {
     })
 
     const { name } = inputValue
+    React.useEffect( () => {
+        if(data){
+            setInputValue({name: data.name.toString() })
+        }
+
+    },[data] )
 
     // Guarda valor de input en el estado
     const handleChangeInput = (e) => {
@@ -68,7 +74,7 @@ const FormUpdateCategory = ({data}) => {
                 {/* <DataDetail >{detailProduct.name}</DataDetail> */}
                 <DataDetail
                 name='name'
-                placeholder={data.name}
+                placeholder='Nombre de la categoria'
                 value={name}
                 onChange={ (e)=> handleChangeInput(e)} 
                 type='text' />
