@@ -48,7 +48,7 @@ export const productsReducer = (state=initialData, action) => {
 
 // Obtener todos los productos
 export const getProductsAction = () => async(dispatch, getState) => {
-    console.log('Obteniendo todos los productos')
+    console.log('GET_PRODUCTS: OBTENIENDO TODOS LOS PRODUCTOS')
     try {
         const result = await axios.get('http://localhost:3001/api/products')
         dispatch({

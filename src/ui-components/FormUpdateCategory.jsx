@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import tw from 'twin.macro'
 
 // Funciones utilitarias
@@ -17,11 +17,12 @@ const ContentData = tw.div`flex gap-4 my-3 px-5 py-2 font-medium border-gray-300
 const DataTitle = tw.p`uppercase`
 const DataDetail = tw.input`text-gray-600 focus:outline-none w-full p-1 px-2 italic`
 
-const FormUpdateCategory = ({data, categories}) => {
+const FormUpdateCategory = ({data}) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate(); 
     const [error, setError] = React.useState('')
+    const [categoryUpdate, setCategoryUpdate] = React.useState(false)
     const [inputValue, setInputValue ] = React.useState({
         name: '',
     })
@@ -43,8 +44,9 @@ const FormUpdateCategory = ({data, categories}) => {
             // Enviar actualizaciones a la DB
             const resUpdate = window.confirm('¿Estas seguro que desea actualizar la categoria?')
             if(resUpdate !== true) return false // Confirmación aceptada
-            dispatch( updateCategoryAction(data.id, inputValue))
-            navigate(`/categories`)
+            dispatch( updateCategoryAction(data.id, inputValue,setError,setCategoryUpdate))
+            setInputValue({name: ''})
+            // navigate(`/categories`)
 
         }
         // Validaciones ======================================================================
@@ -55,7 +57,12 @@ const FormUpdateCategory = ({data, categories}) => {
         <ContentProduct>
             <ProductName >{data.name}</ProductName>
             <p className='text-yellow-600 text-center my-3'>*** Todos los campos estan vacios, tienes que completar nuevamente para modificar el producto ***</p>
-            <p className='text-red-600 text-center my-3 font-medium'> {error} </p>
+            {
+                categoryUpdate ?
+                <Link to={`/categories/${data.id}`} className='text-green-600 text-center my-3 font-medium'>La categoria ha sido actualizada, click aquí para ir a su detalle</Link>
+                :<p className='text-red-600 text-center my-3 font-medium'> {error} </p>
+            }
+
 
             <ContentData >
                 <DataTitle >Nombre:</DataTitle>

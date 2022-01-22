@@ -4,7 +4,7 @@ import axios from "axios"
 // CONSTANTES
 const initialData = {
     array: [],
-    detailCategory: null
+    detailCategory: ''
 }
 
 
@@ -43,6 +43,7 @@ export const categoryReducer = (state=initialData, action) => {
 
 // Obtener todas las categorias
 export const getCategoryAction = () => async(dispatch, getState) => {
+    console.log('GET_CATEGORY: OBTENIENDO TODAS LAS CATEGORIAS')
 
     try {
         const result = await axios.get('http://localhost:3001/api/category')
@@ -59,7 +60,7 @@ export const getCategoryAction = () => async(dispatch, getState) => {
 
 // Obtener detalles de una categoria
 export const getDetailCategoryAction = (id) => async(dispatch, getState) => {
-    console.log('Obtener, categoria coon el id', id)
+    console.log('GET_DETAIL_CATEGORY: OBTENIENDO CATEGORIA CON EL ID', id)
     try{
         const result = await axios.get(`http://localhost:3001/api/category/${id}`)
         dispatch({
@@ -73,15 +74,19 @@ export const getDetailCategoryAction = (id) => async(dispatch, getState) => {
 
 
 // Actualizar Categoria
-export const updateCategoryAction = (id, data) => async(dispatch, getState)=> {
-    console.log('Actualizando una categoria con el id', id)
+export const updateCategoryAction = (id, data,setError,setCategoryCreated) => async(dispatch, getState)=> {
+    console.log('UPDATE_CATEGORY: ACTUALIZAR CATEGORIA CON EL ID', id)
     try {   
         const response = await axios.put(`http://localhost:3001/api/category/${id}`, data)
-        console.log(response)
+        console.log(response.data.error)
+        // Si en la petición obtengo como respuesta un error, envio el mensaje al componente para avisar al usuario
+        if(response.data.error) return setError(response.data.data)
 
         dispatch({
             type: UPDATE_CATEGORY,
         })
+        
+        setCategoryCreated(true)
     } catch (error) {
         console.log('No se pudo actualizar la categoria')
     }

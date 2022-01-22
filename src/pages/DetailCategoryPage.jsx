@@ -19,7 +19,8 @@ const ContentData = tw.div`flex gap-4 my-3 px-5 py-2 font-medium border-gray-300
 const DataTitle = tw.p`uppercase`
 const DataDetail = tw.p`uppercase text-gray-600`
 
-const DetailCategoryPage = () => {  
+const DetailCategoryPage = () => {
+    console.log('Ejecutando componente DetailCategory')  
 
     const navigate = useNavigate()
 

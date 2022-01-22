@@ -14,7 +14,7 @@ import { getDetailCategoryAction } from '../redux/categoryDucks';
 
 
 const UpdateCategoryPage = () => {
-
+    console.log('Ejecutando componente UpdateCategory')
     
     const {id } = useParams()
     const dispatch = useDispatch()

@@ -19,6 +19,7 @@ const ContentSearchAndCreate = tw.div`flex flex-col mb-4`
 const TitleGridTable = tw.div`hidden md:grid grid-cols-4 bg-black p-3 text-white font-medium text-xs md:text-sm`
 
 const AllCategoriesPage = () => {
+    console.log('Ejecutando componente AllCategories')
     
     const dispatch = useDispatch()
     const categories = useSelector( store => store.categories.array )
