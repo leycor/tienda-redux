@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import tw from 'twin.macro'
 
 // Funciones utilitarias
@@ -18,12 +18,13 @@ const DataTitle = tw.p`uppercase`
 const DataDetail = tw.input`text-gray-600 focus:outline-none w-full p-1 px-2 italic`
 
 const FormUpdateProduct = ({data, categories}) => {
-
+    console.log('Ejecutando componente UpdateProduct')
+    const [updateProduct, setUpdateProduct ] = React.useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate(); 
     const [error, setError] = React.useState('')
     const [inputValue, setInputValue ] = React.useState({
-        name: '',
+        name: '' ,
         stock: '',
         price: '',
         categoryId: '',
@@ -31,6 +32,14 @@ const FormUpdateProduct = ({data, categories}) => {
     })
 
     const { name, stock, price, categoryId} = inputValue
+
+    React.useEffect( () => {
+        if(data){
+            setInputValue({...inputValue, name: data.name.toString() , stock: data.stock.toString() , price: data.price.toString() })
+        }
+
+    },[data] )
+
 
     // Guarda valor de input en el estado
     const handleChangeInput = (e) => {
@@ -47,16 +56,8 @@ const FormUpdateProduct = ({data, categories}) => {
             // Enviar actualizaciones a la DB
             const resUpdate = window.confirm('¿Estas seguro que desea actualizar el producto?')
             if(resUpdate !== true) return false // Confirmación aceptada
-            dispatch( updateProductAction(data.id, inputValue) )
-            navigate(`/products/`)
-            // try {
-            //     const response = await axios.put(`http://localhost:3001/api/products/${data.id}`, inputValue);
-            //     console.log(response)
-            //     setInputValue({name: '', stock:'', price:'', categoyId:''})
-            //     navigate(`/products/${data.id}`)
-            // } catch (error) {
-            //     console.log(error)
-            // }
+            dispatch( updateProductAction(data.id, inputValue,setError,setUpdateProduct) )
+            // navigate(`/products/${data.id}`)
         }
         // Validaciones ======================================================================
 
@@ -66,7 +67,12 @@ const FormUpdateProduct = ({data, categories}) => {
         <ContentProduct>
             <ProductName >{data.name}</ProductName>
             <p className='text-yellow-600 text-center my-3'>*** Todos los campos estan vacios, tienes que completar nuevamente para modificar el producto ***</p>
-            <p className='text-red-600 text-center my-3 font-medium'> {error} </p>
+            {
+                updateProduct ?
+                <Link to={`/products/${data.id}`} className='text-green-600 text-center my-3 font-medium'>El producto ha sido actualizado, click aquí para ir a su detalle</Link>
+                :<p className='text-red-600 text-center my-3 font-medium'> {error} </p>
+            }
+
 
             <ContentData >
                 <DataTitle >Nombre:</DataTitle>

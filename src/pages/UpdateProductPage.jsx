@@ -21,7 +21,6 @@ const UpdateProductPage = () => {
     const dispatch = useDispatch()
     const detailProduct = useSelector(store => store.products.detailProduct)
     const categories = useSelector(store => store.categories.array)
-    console.log(detailProduct)
 
 
     React.useEffect( () => {

@@ -113,15 +113,18 @@ export const createProductAction = (product,setError,setCreatedProduct) => async
 
 
 // Actualizar un producto
-export const updateProductAction = (id, inputValue) => async(dispatch, getState) => {
-    console.log('Actualizar el producto con id', id)
+export const updateProductAction = (id, inputValue,setError,setUpdateProduct) => async(dispatch, getState) => {
+    console.log('UPDATE_PRODUCT: ACTUALIZAR PRODUCTO CON EL ID', inputValue)
     try {
         const response = await axios.put(`http://localhost:3001/api/products/${id}`, inputValue);
-        console.log(response)
+        console.log(response.data.error)
+        if(response.data.error) return setError(response.data.data)
 
         dispatch({
-            type: UPDATE_PRODUCT
+            type: UPDATE_PRODUCT,
         })
+
+        setUpdateProduct(true) 
     } catch (error) {
         console.log(error)
     }
@@ -130,7 +133,7 @@ export const updateProductAction = (id, inputValue) => async(dispatch, getState)
 
 // Eliminar un producto
 export const deleteProductAction = (id) => async(dispatch, getState) => {
-    console.log('Eliminar el producto', id)
+    console.log('DELETE_PRODUCT: ELIMINAR PRODUCTO CON EL ID', id)
     try {   
         const response = await axios.delete(`http://localhost:3001/api/products/${id}`)
         console.log(response)
