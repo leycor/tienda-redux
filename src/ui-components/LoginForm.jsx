@@ -7,6 +7,7 @@ import tw from 'twin.macro';
 
 // Actions
 import { userLoginAction } from '../redux/userDucks';
+import { useNavigate } from 'react-router-dom';
 
 // Style Component
 const ContentForm = tw.div`px-8  py-12`
@@ -18,9 +19,9 @@ const ButtonForm = tw.button`w-full py-2 bg-black text-white font-medium`
 
 const LoginForm = ({setError}) => {
 
+
+    const navigate = useNavigate()
     const dispatch = useDispatch()
-    // const users = useSelector(store => store.users)
-    // console.log(users)
 
     const [inputValue, setInputValue ] = React.useState({
         email: '',
@@ -40,8 +41,7 @@ const LoginForm = ({setError}) => {
         if(email === '' || password === '' ) return setError('Los campos no pueden estar vacios')
         if(!validator.isEmail(email)) return setError('Email invalido')
 
-        dispatch( userLoginAction(inputValue) )
-        // navigate('/login')
+        dispatch( userLoginAction(inputValue,setError, navigate) )
     }
     
     return (

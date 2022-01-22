@@ -1,9 +1,10 @@
 import axios from 'axios'
+const PORT = 3001
 
 // Constantes
 const initialData = {
-    user: '',
-    login: '',
+    login: false,
+    token: '',
 }
 
 // TIPOS DE ACCIONES
@@ -18,7 +19,7 @@ export const usersReducer = (state=initialData, action) => {
             return state
 
         case LOGIN_USER:
-            return {...state, login: action.payload}
+            return {...state, token: action.payload, login: true}
     
         default:
             return state;
@@ -28,37 +29,37 @@ export const usersReducer = (state=initialData, action) => {
 // ACCIONES
 
 // Crear usuario
-export const userCreatedAction = (user) => async(dispatch, getState) => {
-    console.log('Registrar usuario', user)
+export const userCreatedAction = (user,setError,navigate) => async(dispatch, getState) => {
+    console.log('CREATE_USER: CREAR EL USUARIO', user)
     try {
-        const response = await axios.post(`http://localhost:3001/api/users/register`, user)
-        console.log(response)
+        const response = await axios.post(`http://localhost:${PORT}/api/users/register`, user)
+        if(response.data.error) return setError(response.data.data)
+        console.log(response.data)
 
         dispatch({
             type: CREATE_USER,
         })
+        navigate('/login')
     } catch (error) {
         console.log('No se pudo crear el usuario', error)
     }
 }
 
 // Loguear usuario
-export const userLoginAction = (user) => async(dispatch, getState) => {
-    console.log('Logueando con', user)
+export const userLoginAction = (user,setError, navigate) => async(dispatch, getState) => {
+    console.log('LOGIN_USER: LOGUEAR USUARIO', user)
     try {
-        const response = await axios.post(`http://localhost:3001/api/users/login`,user)
+        const response = await axios.post(`http://localhost:${PORT}/api/users/login`,user)
         console.log(response.data)
-        if(response.data !== 'Datos incorrectos'){
-            dispatch({
-                type: LOGIN_USER, 
-                payload: true
-            })
-        } else {
-            dispatch({
-                type: LOGIN_USER,
-                payload: 'Datos incorrectos'
-            })
-        }
+        if(response.data.error) return setError(response.data.data)
+
+        dispatch({
+            type: LOGIN_USER,
+            payload: response.data.data
+        })
+
+        navigate('/')
+
     } catch (error) {
         console.log(error)
     }   

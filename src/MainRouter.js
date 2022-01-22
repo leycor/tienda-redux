@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 
 // Components
 import Navbar from './ui-components/Navbar';
@@ -23,8 +23,11 @@ import generateStore from './redux/store'
 
 const MainRouter = () => {
   console.log('Ejecutando componente Main Router')
-
+   
   const store = generateStore()
+  const { login } = store.getState().users
+  console.log(login)
+
   return (
     <Provider store={store}>
       {/* Menú de navegación */}
@@ -32,7 +35,7 @@ const MainRouter = () => {
 
       {/* Rutas */}
       <Routes>
-        <Route path='/' element={ <AdminPage />} />
+        <Route path='/' element={ login ? <AdminPage />  : <Navigate to='/login' />} />
         <Route path='/categories' element={ <AllCategoriesPage />} />
         <Route path='/categories/:id' element={ <DetailCategoryPage />} />
         <Route path='/categories/create' element={ <CreateCategoryPage />} />

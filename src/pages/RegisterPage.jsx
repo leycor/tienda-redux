@@ -42,8 +42,8 @@ const RegisterPage = () => {
         if(password.length < 5 || passwordConfirm.length < 5) return setError('La contraseña tiene que tener un minimo de 5 caracteres')
         if(password !== passwordConfirm ) return setError('Las contraseñas no coinciden')
 
-        dispatch( userCreatedAction(inputValue) )
-        navigate('/login')
+        dispatch( userCreatedAction(inputValue,setError,navigate) )
+        // navigate('/login')
     }
 
     return (
