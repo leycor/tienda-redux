@@ -19,6 +19,7 @@ const DataDetail = tw.input`text-gray-600 focus:outline-none w-full p-1 px-2 ita
 
 const FormUpdateProduct = ({data, categories}) => {
     console.log('Ejecutando componente UpdateProduct')
+    const [file, setFile ] = React.useState(null)
     const [updateProduct, setUpdateProduct ] = React.useState(false)
     const dispatch = useDispatch()
     const [error, setError] = React.useState('')
@@ -30,7 +31,7 @@ const FormUpdateProduct = ({data, categories}) => {
 
     })
 
-    const { name, stock, price, } = inputValue
+    const { name, stock, price, categoryId } = inputValue
 
     React.useEffect( () => {
         if(data){
@@ -45,6 +46,12 @@ const FormUpdateProduct = ({data, categories}) => {
         setInputValue({...inputValue, [e.target.name]: e.target.value})
     }
 
+    // Capturar valores de la imagen
+    const handleChangeFile = (e) => {
+        setFile(e.target.files[0])
+    }
+
+
     // Enviar actualizaciones
     const handleSendForm = async(e) => {
         e.preventDefault()
@@ -55,7 +62,15 @@ const FormUpdateProduct = ({data, categories}) => {
             // Enviar actualizaciones a la DB
             const resUpdate = window.confirm('¿Estas seguro que desea actualizar el producto?')
             if(resUpdate !== true) return false // Confirmación aceptada
-            dispatch( updateProductAction(data.id, inputValue,setError,setUpdateProduct) )
+
+            const formData = new FormData()
+            formData.append('file', file)
+            formData.append('name', name)
+            formData.append('stock', stock)
+            formData.append('price', price)
+            formData.append('categoryId', categoryId)
+
+            dispatch( updateProductAction(data.id, FormData,setError,setUpdateProduct) )
             // navigate(`/products/${data.id}`)
         }
         // Validaciones ======================================================================
@@ -118,6 +133,17 @@ const FormUpdateProduct = ({data, categories}) => {
                     }
                 </select>
                 {/* <DataDetail >{detailProduct.category.name}</DataDetail> */}
+            </ContentData>
+
+            
+            <ContentData >
+                <DataTitle >Imagen:</DataTitle>
+                <DataDetail
+                name='file'
+                placeholder='file'
+                type='file'
+                onChange={ handleChangeFile }  
+                />
             </ContentData>
 
             <div className='flex justify-end pt-5'>

@@ -114,10 +114,10 @@ export const createProductAction = (formData,setError,setCreatedProduct) => asyn
 
 
 // Actualizar un producto
-export const updateProductAction = (id, inputValue,setError,setUpdateProduct) => async(dispatch, getState) => {
-    console.log('UPDATE_PRODUCT: ACTUALIZAR PRODUCTO CON EL ID', inputValue)
+export const updateProductAction = (id, formData,setError,setUpdateProduct) => async(dispatch, getState) => {
+    console.log('UPDATE_PRODUCT: ACTUALIZAR PRODUCTO CON EL ID', formData)
     try {
-        const response = await axios.put(`http://localhost:${PORT}/api/products/${id}`, inputValue);
+        const response = await axios.put(`http://localhost:${PORT}/api/products/${id}`, formData);
         console.log(response.data.error)
         if(response.data.error) return setError(response.data.data)
 
