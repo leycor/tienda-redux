@@ -1,6 +1,6 @@
 import validator from 'validator';
 
-export const validationProduct = (data, setError) => {
+export const validationProduct = (data,file, setError) => {
 
         // Validaciones ======================================================================
         if(data.name ==='' || data.name.length < 3) return setError( 'El nombre de producto debe ser mayor a 3 caracteres')
@@ -21,6 +21,8 @@ export const validationProduct = (data, setError) => {
         if(data.price < 1 ) return setError('El precio debe ser mayor a uno')
 
         if( data.categoryId === '') return setError('El campo categoria se encuentra vacio')
+
+        if(file === null || file === '' ) return setError('Es necesario que el producto tenga una imagen')
 
         return 'formOkey'
         

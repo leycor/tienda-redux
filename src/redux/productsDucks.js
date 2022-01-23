@@ -95,10 +95,10 @@ export const getDetailProduct = (id) => async(dispatch, getState) => {
 }
 
 // Crear producto
-export const createProductAction = (product,setError,setCreatedProduct) => async(dispatch, getState) => {
-    console.log('CREATE_PRODUCT: CREAR PRODUCTO', product)
+export const createProductAction = (formData,setError,setCreatedProduct) => async(dispatch, getState) => {
+    console.log('CREATE_PRODUCT: CREAR PRODUCTO', FormData)
     try {
-        const response = await axios.post(`http://localhost:${PORT}/api/products`, product)
+        const response = await axios.post(`http://localhost:${PORT}/api/products`, formData)
         console.log(response.data.error)
         if(response.data.error) return setError(response.data.data)
 

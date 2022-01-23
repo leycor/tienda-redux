@@ -21,6 +21,7 @@ import CreateCategoryPage from './pages/CreateCategoryPage';
 import ProtectedRoute from './routes/ProtectedRoute';
 // Store
 import generateStore from './redux/store'
+import StaticPage from './pages/StaticPage';
 
 
 const MainRouter = () => {
@@ -48,6 +49,7 @@ const MainRouter = () => {
         </Route>
 
         {/* Rutas Publicas */}
+        <Route path='/form' element={ <StaticPage /> } />
         <Route path='/login' element={ <LoginPage />} />
         <Route path='/register' element={ <RegisterPage />} />
         <Route path="*" element={<NoMatchPage />} />

@@ -21,6 +21,7 @@ const FormCreateProduct = ({categories}) => {
 
     const dispatch = useDispatch()
     const [error, setError] = React.useState('')
+    const [file, setFile ] = React.useState(null)
     const [createdProduct, setCreatedProduct ] = React.useState(false)
     const [inputValue, setInputValue ] = React.useState({
         name: '',
@@ -30,11 +31,16 @@ const FormCreateProduct = ({categories}) => {
 
     })
 
-    const { name, stock, price } = inputValue
+    const { name, stock, price, categoryId } = inputValue
 
     // Guarda valor de input en el estado
     const handleChangeInput = (e) => {
         setInputValue({...inputValue, [e.target.name]: e.target.value})
+    }
+
+    // Capturar valores de la imagen
+    const handleChangeFile = (e) => {
+        setFile(e.target.files[0])
     }
 
     // Enviar actualizaciones
@@ -42,12 +48,22 @@ const FormCreateProduct = ({categories}) => {
         e.preventDefault()
         console.log(inputValue)
 
+
         // Validaciones ======================================================================
-        if(validationProduct(inputValue, setError) === 'formOkey'){
+        if(validationProduct(inputValue, file, setError) === 'formOkey'){
             // Enviar actualizaciones a la DB
             const resUpdate = window.confirm('¿Estas seguro que desea crear el producto?')
+            
             if(resUpdate !== true) return false // Confirmación aceptada
-            dispatch( createProductAction(inputValue,setError,setCreatedProduct) )
+            
+            const formData = new FormData()
+            formData.append('file', file)
+            formData.append('name', name)
+            formData.append('stock', stock)
+            formData.append('price', price)
+            formData.append('categoryId', categoryId)
+
+            dispatch( createProductAction(formData,setError,setCreatedProduct) )
             setInputValue({name: '', stock: '', price: '', categoryId: ''})
         }
         // Validaciones ======================================================================
@@ -95,6 +111,8 @@ const FormCreateProduct = ({categories}) => {
                 type='number' />
             </ContentData>
 
+
+
             <ContentData >
                 <DataTitle >Categoria:</DataTitle>
                 <select
@@ -109,6 +127,16 @@ const FormCreateProduct = ({categories}) => {
                     }
                 </select>
                 {/* <DataDetail >{detailProduct.category.name}</DataDetail> */}
+            </ContentData>
+
+            <ContentData >
+                <DataTitle >Imagen:</DataTitle>
+                <DataDetail
+                name='file'
+                placeholder='file'
+                type='file'
+                onChange={ handleChangeFile }  
+                />
             </ContentData>
 
             <div className='flex justify-end pt-5'>
