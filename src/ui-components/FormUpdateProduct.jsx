@@ -70,7 +70,7 @@ const FormUpdateProduct = ({data, categories}) => {
             formData.append('price', price)
             formData.append('categoryId', categoryId)
 
-            dispatch( updateProductAction(data.id, FormData,setError,setUpdateProduct) )
+            dispatch( updateProductAction(data.id, formData,setError,setUpdateProduct) )
             // navigate(`/products/${data.id}`)
         }
         // Validaciones ======================================================================

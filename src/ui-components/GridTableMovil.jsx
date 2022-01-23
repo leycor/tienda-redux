@@ -1,11 +1,14 @@
 import React from 'react'
 import tw from 'twin.macro'
+import ModalImage from './ModalImage'
 
 const ContentGridTable = tw.div`grid grid-cols-2  bg-black text-white text-sm font-medium mb-5 md:hidden`
 const Title = tw.p`bg-black p-2 flex items-center justify-center border-gray-300 border-b`
 const Detail = tw.p`bg-white p-2 text-black border-gray-300 border-b`
 
 const GridTableMovil = ({data,gridCols}) => {
+
+    const [showModal, setShowModal] = React.useState(false)
 
         // Función para formatear fecha
         const date = new Date();
@@ -15,41 +18,50 @@ const GridTableMovil = ({data,gridCols}) => {
         }
 
     return (
-        data.price
-        ? 
-        // Imprimir esto si la data son productos
-        <ContentGridTable className={`grid-cols-${gridCols}`}>
-                <Title >Nombre</Title>
-                    <Detail >{`#${data.id} ${data.name}`} </Detail>
+        <>
+        {
+            data.price
+            ? 
+            // Imprimir esto si la data son productos
+            <ContentGridTable className={`grid-cols-${gridCols}`}>
+                    <Title >Nombre</Title>
+                        <Detail >{`#${data.id} ${data.name}`} </Detail>
 
-                <Title >Stock</Title>
-                    <Detail > { data.stock} </Detail>
+                    <Title >Image</Title>
+                        <p className='bg-white p-2 border-gray-300 border-b cursor-pointer text-blue-600' onClick={() => setShowModal(!showModal)} >Link</p>
 
-                <Title >Precio</Title>
-                    <Detail className='text-green-600' > { data.price}$ </Detail>
+                    <Title >Stock</Title>
+                        <Detail > { data.stock} </Detail>
 
-                <Title >Categoria</Title>
-                    <Detail > { data.category?.name} </Detail>
+                    <Title >Precio</Title>
+                        <Detail className='text-green-600' > { data.price}$ </Detail>
 
-                <Title >Acciones</Title>
-                    <Detail >Ver detalles</Detail>
-        </ContentGridTable>
+                    <Title >Categoria</Title>
+                        <Detail > { data.category?.name} </Detail>
 
-        :
-        // Imprimir esto si la data son categorias
-        <ContentGridTable>
-                <Title >Nombre</Title>
-                    <Detail >{`#${data.id} ${data.name}`} </Detail>
+                    <Title >Acciones</Title>
+                        <Detail >Ver detalles</Detail>
+            </ContentGridTable>
 
-                <Title >Creación</Title>
-                    <Detail > { formatDate(data.createdAt) } </Detail>
+            :
+            // Imprimir esto si la data son categorias
+            <ContentGridTable>
+                    <Title >Nombre</Title>
+                        <Detail >{`#${data.id} ${data.name}`} </Detail>
 
-                <Title >Actualización</Title>
-                    <Detail > { formatDate(data.updatedAt)} </Detail>
+                    <Title >Creación</Title>
+                        <Detail > { formatDate(data.createdAt) } </Detail>
 
-                <Title >Acciones</Title>
-                    <Detail >Ver detalles</Detail>
-        </ContentGridTable>
+                    <Title >Actualización</Title>
+                        <Detail > { formatDate(data.updatedAt)} </Detail>
+
+                    <Title >Acciones</Title>
+                        <Detail >Ver detalles</Detail>
+            </ContentGridTable>
+
+        }
+        <ModalImage showModal={showModal} setShowModal={setShowModal} file={data.file} />
+        </>
     )
 }
 

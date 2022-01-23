@@ -14,14 +14,16 @@ import FilterProduct from '../ui-components/FilterProduct'
 import GridTableLg from '../ui-components/GridTableLg.jsx'
 import GridTableMovil from '../ui-components/GridTableMovil'
 import InputSearch from '../ui-components/InputSearch'
+import ModalImage from '../ui-components/ModalImage'
 import TitlePage from '../ui-components/TitlePage'
 
 // Style Components
 const ContentSearchAndCreate = tw.div`flex flex-col mb-4`
-const TitleGridTable = tw.div`hidden md:grid grid-cols-5 bg-black p-3 text-white font-medium text-xs md:text-sm`
+const TitleGridTable = tw.div`hidden md:grid grid-cols-6 bg-black p-3 text-white font-medium text-xs md:text-sm`
 
 const AllProductsPage = () => {
     console.log('Ejecutando componente AllProductPage')
+
     const dispatch = useDispatch()
     const products = useSelector( store => store.products.array )
     const filterProducts = useSelector( store => store.products.filter )
@@ -49,6 +51,7 @@ const AllProductsPage = () => {
 
             <TitleGridTable>
                 <p>Nombre</p>
+                <p>Image</p>
                 <p>Stock</p>
                 <p>Precio</p>
                 <p>Categoria</p>
@@ -62,7 +65,7 @@ const AllProductsPage = () => {
 
                 ? // Si el array de filtros está vacio imprime todos los productos
                 products.map( (product) => (
-                    <GridTableLg key={product.id} data={product} gridCols={5} />
+                    <GridTableLg key={product.id} data={product} gridCols={6} />
                 ))
                 
                 : // Si el array de filtros tiene datos entonces imprimelo
@@ -86,7 +89,7 @@ const AllProductsPage = () => {
                     <GridTableMovil key={product.id} data={product} gridCols={2} />
                 ) )
             }
-
+        
         </ContentPage>
     )
 }
