@@ -55,6 +55,10 @@ const DetailProductPage = () => {
 
                     <ContentProduct>
                         <ProductName >{detailProduct.name}</ProductName>
+                       {
+                           detailProduct.file &&
+                           <img className='mt-5 w-40 h-40 object-cover' src={`http://localhost:3001/images/${detailProduct.file}`}  alt="name" />
+                       }
 
                         <ContentData >
                             <DataTitle >Nombre:</DataTitle>

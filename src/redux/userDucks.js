@@ -3,7 +3,7 @@ const PORT = 3001
 
 // Constantes
 const initialData = {
-    login: true,
+    login: false,
     token: '',
 }
 
